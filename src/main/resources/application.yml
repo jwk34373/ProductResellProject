@@ -5,3 +5,4 @@ spring:
       enabled: true
 
   output.ansi.enabled: always
+
