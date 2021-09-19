@@ -3,7 +3,6 @@ spring:
     console:
       path: /h2console
       enabled: true
+  jpa.show_sql: true
 
   output.ansi.enabled: always
-
-  #commit test11
