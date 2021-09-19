@@ -6,3 +6,4 @@ spring:
 
   output.ansi.enabled: always
 
+  #commit test
