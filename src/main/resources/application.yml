@@ -1,0 +1,7 @@
+spring:
+  h2: # h2 console ?? ??
+    console:
+      path: /h2console
+      enabled: true
+
+  output.ansi.enabled: always
