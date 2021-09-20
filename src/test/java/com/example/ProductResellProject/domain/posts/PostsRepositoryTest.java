@@ -1,6 +1,5 @@
 package com.example.ProductResellProject.domain.posts;
 
-import javafx.geometry.Pos;
 import org.aspectj.lang.annotation.After;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;

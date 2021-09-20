@@ -4,7 +4,6 @@ import com.example.ProductResellProject.domain.posts.Posts;
 import com.example.ProductResellProject.domain.posts.PostsRepository;
 import com.example.ProductResellProject.web.dto.PostsSaveRequestDto;
 import com.example.ProductResellProject.web.dto.PostsUpdateRequestDto;
-import javafx.geometry.Pos;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
