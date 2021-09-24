@@ -10,6 +10,9 @@ var main = {
         $('#btn-delete').on('click', function(){
             _this.delete();
         })
+        $('#btn-requestLogin').on('click', function(){
+            _this.login();
+        })
     },
     save : function() {
         var data = {
@@ -66,7 +69,25 @@ var main = {
             }).fail(function (error) {
                 alert(JSON.stringify(error));
             });
-        }
+        },
+    login : function () {
+        var data = {
+            userId: $('#userId').val(),
+            userPwd: $('#userPwd').val()
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/api/login',
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('login.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    }
 };
 
 main.init();
