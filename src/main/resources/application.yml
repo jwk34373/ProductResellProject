@@ -4,8 +4,8 @@ spring:
     console:
       path: /h2-console
       enabled: true
-  #datasource:
-    #url: jdbc:h2:mem:testdb
+  datasource:
+    url: jdbc:h2:mem:testdb
   profile:
     include: oauth, real-db
   jpa:
@@ -15,12 +15,12 @@ spring:
     show_sql: false
   session:
     store-type: jdbc
-  datasource:
-    hikari:
-      jdbc-url: jdbc:mariadb://productresell.cylyv0ufwnpb.ap-northeast-2.rds.amazonaws.com:3306/ProductResell
-      username: admin
-      password: Product1!
-      driver-class-name: org.mariadb.jdbc.Driver
+#  datasource:
+#    hikari:
+#      jdbc-url: jdbc:mariadb://productresell.cylyv0ufwnpb.ap-northeast-2.rds.amazonaws.com:3306/ProductResell
+#      username: admin
+#      password: Product1!
+#      driver-class-name: org.mariadb.jdbc.Driver
 
 
 
