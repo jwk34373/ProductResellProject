@@ -10,7 +10,7 @@ public class LoginController {
 
     @PostMapping("/api/login")
     public String requestLogin(@PathVariable String userId,
-                             @PathVariable String userPwd){
+                               @PathVariable String userPwd){
         class Res{
             String id;
             String pwd;
