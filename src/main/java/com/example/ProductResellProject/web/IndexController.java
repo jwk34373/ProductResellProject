@@ -1,19 +1,20 @@
 package com.example.ProductResellProject.web;
 
 import com.example.ProductResellProject.service.PostsService;
+import com.example.ProductResellProject.service.UserService;
 import com.example.ProductResellProject.web.dto.PostsResponseDto;
+import com.example.ProductResellProject.web.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
 public class IndexController {
 
     private final PostsService postsService;
+    private final UserService userService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -36,6 +37,12 @@ public class IndexController {
     @GetMapping("/signup")
     public String signup() {
         return "signup";
+    }
+
+    @RequestMapping(value = "/signup/request", method = RequestMethod.POST)
+    @ResponseBody
+    public Long requestSignUp(@RequestBody UserInfoDto userInfoDto) {
+        return userService.save(userInfoDto);
     }
 
     @GetMapping("/login")

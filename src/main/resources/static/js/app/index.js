@@ -13,6 +13,9 @@ var main = {
         $('#btn-requestLogin').on('click', function(){
             _this.login();
         })
+        $('#btn-requestSignup').on('click', function(){
+            _this.signup();
+        })
     },
     save : function() {
         var data = {
@@ -83,6 +86,25 @@ var main = {
             data: JSON.stringify(data)
         }).done(function() {
             alert('login.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    signup: function(){
+        var data = {
+            userId: $('#userId').val(),
+            userPwd: $('#userPwd').val(),
+            name: $('#userName').val()
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/signup/request',
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('sign up.');
             window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));
