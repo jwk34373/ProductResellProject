@@ -13,6 +13,9 @@ var main = {
         $('#btn-requestLogin').on('click', function(){
             _this.login();
         })
+        $('#btn-requestSignup').on('click', function(){
+            _this.signup();
+        })
     },
     save : function() {
         var data = {
@@ -87,7 +90,30 @@ var main = {
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
-    }
+    },
+   signup : function() {
+        var data = {
+            userId: $('#userId').val(),
+            userName: $('#userName').val(),
+            userPwd: $('#password').val(),
+            userPwdCheck: $('#passwordCheck').val()
+        };
+        //var token = $("meta[name='_csrf']").attr("content");
+        //var header = $("meta[name='_csrf_header']").attr("content");
+        //$(document).ajaxSend(function(e, xhr, options) { xhr.setRequestHeader(header, token); });
+        $.ajax({
+            type: 'POST',
+            url: '/api/signup',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('회원가입이 완료되었습니다.');
+            window.location.href = '/login';
+        }).fail(function(error){
+            alert(JSON.stringify(error));
+        });
+    },
 };
 
 main.init();
