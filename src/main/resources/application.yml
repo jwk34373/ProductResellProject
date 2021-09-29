@@ -6,8 +6,6 @@ spring:
       enabled: true
     datasource:
       url: jdbc:h2:mem:testdb
-  profile:
-    include: oauth, real-db
   jpa:
     properties:
       hibernet:
