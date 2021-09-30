@@ -28,6 +28,7 @@ public class User implements UserDetails {
 
     private String name;
 
+    @Enumerated(EnumType.STRING)
     private Role role;
 
 
@@ -74,7 +75,10 @@ public class User implements UserDetails {
         this.userId = userId;
         this.userPwd = userPwd;
         this.name = name;
+        this.role = Role.USER;
     }
+
+
 
 }
 

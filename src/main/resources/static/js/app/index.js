@@ -95,6 +95,7 @@ var main = {
         var data = {
             userId: $('#userId').val(),
             userPwd: $('#userPwd').val(),
+            userPwdCheck: $('#userPwdCheck').val(),
             name: $('#userName').val()
         };
         $.ajax({

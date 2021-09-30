@@ -1,5 +1,6 @@
 package com.example.ProductResellProject.web.dto;
 
+import com.example.ProductResellProject.domain.users.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,21 @@ public class UserInfoDto {
         this.userPwdCheck = userPwdCheck;
     }
 
+    public User toEntity(String bcryptPwd){
+        return  User.builder()
+                .userId(userId)
+                .userPwd(bcryptPwd)
+                .name(name)
+                .build();
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfoDto{" +
+                "userId='" + userId + '\'' +
+                ", userPwd='" + userPwd + '\'' +
+                ", name='" + name + '\'' +
+                ", userPwdCheck='" + userPwdCheck + '\'' +
+                '}';
+    }
 }

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,21 +20,20 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
     private final UsersRepository usersRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public Long save(UserInfoDto userInfoDto) {
+//        log.info(userInfoDto.toString());
+//        log.info("pwd encode : " + passwordEncoder.encode(userInfoDto.getUserPwd()));
+
         validateDuplicateUser(userInfoDto.getUserId()); // ID 중복 체크
         if(!userInfoDto.getUserPwd().equals(userInfoDto.getUserPwdCheck())){    // pwd 체크
             throw new IllegalStateException("Password가 동일하지 않습니다.");
         }
-        User user = User.builder()  // 나중에 dto로 옮기면 깔금함
-                .userId(userInfoDto.getUserId())
-                .userPwd(userInfoDto.getUserPwd())
-                .name(userInfoDto.getName())
-                .build();
 
-        User newUser = usersRepository.save(user);  // user 저장
-        return newUser.getId();
+        String encodePwd = passwordEncoder.encode(userInfoDto.getUserPwd());
+        return usersRepository.save(userInfoDto.toEntity(encodePwd)).getId();
 
     }
 
