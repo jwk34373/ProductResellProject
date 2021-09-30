@@ -10,21 +10,14 @@ public class UserInfoDto {
     private String userId;
     private String userPwd;
     private String name;
-    //pwdcheck
+    private String userPwdCheck;
 
     @Builder
-    public UserInfoDto(String userId, String userPwd, String name) {
+    public UserInfoDto(String userId, String userPwd, String name, String userPwdCheck) {
         this.userId = userId;
         this.userPwd = userPwd;
         this.name = name;
+        this.userPwdCheck = userPwdCheck;
     }
 
-    @Override
-    public String toString() {
-        return "UserInfoDto{" +
-                "userId='" + userId + '\'' +
-                ", userPwd='" + userPwd + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

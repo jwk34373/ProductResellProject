@@ -22,17 +22,21 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public Long save(UserInfoDto userInfoDto) {
-//        log.info(userInfoDto.toString());
-        validateDuplicateUser(userInfoDto.getUserId());
-        User user = User.builder()
+        validateDuplicateUser(userInfoDto.getUserId()); // ID 중복 체크
+        if(!userInfoDto.getUserPwd().equals(userInfoDto.getUserPwdCheck())){    // pwd 체크
+            throw new IllegalStateException("Password가 동일하지 않습니다.");
+        }
+        User user = User.builder()  // 나중에 dto로 옮기면 깔금함
                 .userId(userInfoDto.getUserId())
                 .userPwd(userInfoDto.getUserPwd())
                 .name(userInfoDto.getName())
                 .build();
-        User newUser = usersRepository.save(user);
+
+        User newUser = usersRepository.save(user);  // user 저장
         return newUser.getId();
 
     }
+
 
     @Override
     @Transactional
@@ -42,11 +46,12 @@ public class UserService implements UserDetailsService {
     }
 
     // userId 중복검사
-    public void validateDuplicateUser(String userId){
+    private void validateDuplicateUser(String userId){
         Optional<User> user = usersRepository.findByUserId(userId);
         log.info("userId : " + userId);
         user.ifPresent(findUser -> {
             throw new IllegalStateException("아이디 중복");
         });
     }
+
 }

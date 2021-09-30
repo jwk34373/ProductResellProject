@@ -1,5 +1,6 @@
 package com.example.ProductResellProject.domain.users;
 
+import com.example.ProductResellProject.web.dto.UserInfoDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,12 +31,6 @@ public class User implements UserDetails {
     private Role role;
 
 
-    @Builder
-    public User(String userId, String userPwd, String name) {
-        this.userId = userId;
-        this.userPwd = userPwd;
-        this.name = name;
-    }
 
     // 야발 이게 뭐임??? ㅋㅋ
     @Override
@@ -72,5 +67,14 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return false;
     }
+
+    //== 생성 메서드 ==//
+    @Builder
+    public User(String userId, String userPwd, String name) {
+        this.userId = userId;
+        this.userPwd = userPwd;
+        this.name = name;
+    }
+
 }
 
