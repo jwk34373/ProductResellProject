@@ -80,7 +80,7 @@ var main = {
         };
         $.ajax({
             type: 'POST',
-            url: '/api/login',
+            url: '/login/request',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -91,31 +91,6 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
-<<<<<<< HEAD
-   signup : function() {
-        var data = {
-            userId: $('#userId').val(),
-            userName: $('#userName').val(),
-            userPwd: $('#password').val(),
-            userPwdCheck: $('#passwordCheck').val()
-        };
-        //var token = $("meta[name='_csrf']").attr("content");
-        //var header = $("meta[name='_csrf_header']").attr("content");
-        //$(document).ajaxSend(function(e, xhr, options) { xhr.setRequestHeader(header, token); });
-        $.ajax({
-            type: 'POST',
-            url: '/api/signup',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function() {
-            alert('회원가입이 완료되었습니다.');
-            window.location.href = '/login';
-        }).fail(function(error){
-            alert(JSON.stringify(error));
-        });
-    },
-=======
     signup: function(){
         var data = {
             userId: $('#userId').val(),
@@ -136,7 +111,6 @@ var main = {
             alert(JSON.stringify(error));
         });
     }
->>>>>>> master
 };
 
 main.init();
