@@ -91,6 +91,7 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
+<<<<<<< HEAD
    signup : function() {
         var data = {
             userId: $('#userId').val(),
@@ -114,6 +115,28 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
+=======
+    signup: function(){
+        var data = {
+            userId: $('#userId').val(),
+            userPwd: $('#userPwd').val(),
+            userPwdCheck: $('#userPwdCheck').val(),
+            name: $('#userName').val()
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/signup/request',
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('sign up.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    }
+>>>>>>> master
 };
 
 main.init();
