@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,20 +20,24 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
     private final UsersRepository usersRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public Long save(UserInfoDto userInfoDto) {
 //        log.info(userInfoDto.toString());
-        validateDuplicateUser(userInfoDto.getUserId());
-        User user = User.builder()
-                .userId(userInfoDto.getUserId())
-                .userPwd(userInfoDto.getUserPwd())
-                .name(userInfoDto.getName())
-                .build();
-        User newUser = usersRepository.save(user);
-        return newUser.getId();
+//        log.info("pwd encode : " + passwordEncoder.encode(userInfoDto.getUserPwd()));
+
+        validateDuplicateUser(userInfoDto.getUserId()); // ID 중복 체크
+        if(!userInfoDto.getUserPwd().equals(userInfoDto.getUserPwdCheck())){    // pwd 체크
+            throw new RuntimeException("비밀번호가 동일하지 않습니다.");
+//          throw new IllegalStateException("비밀번호가 동일하지 않습니다. ")
+        }
+
+        String encodePwd = passwordEncoder.encode(userInfoDto.getUserPwd());
+        return usersRepository.save(userInfoDto.toEntity(encodePwd)).getId();
 
     }
+
 
     @Override
     @Transactional
@@ -42,11 +47,12 @@ public class UserService implements UserDetailsService {
     }
 
     // userId 중복검사
-    public void validateDuplicateUser(String userId){
+    private void validateDuplicateUser(String userId){
         Optional<User> user = usersRepository.findByUserId(userId);
         log.info("userId : " + userId);
         user.ifPresent(findUser -> {
-            throw new IllegalStateException("아이디 중복");
+            throw new RuntimeException("아이디 중복");
         });
     }
+
 }

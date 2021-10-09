@@ -92,10 +92,18 @@ var main = {
         });
     },
     signup: function(){
+//        var role
+//        if($('#admin').checked == true){
+//            role = "ADMIN";
+//        } else {
+//            role = "USER";
+//        }
         var data = {
             userId: $('#userId').val(),
             userPwd: $('#userPwd').val(),
-            name: $('#userName').val()
+            userPwdCheck: $('#userPwdCheck').val(),
+            name: $('#userName').val(),
+            role: $(':radio[name="role"]:checked').val()
         };
         $.ajax({
             type: 'POST',

@@ -45,6 +45,8 @@ class PostsApiControllerTest {
     @Test
     public void Posts_등록된다() throws Exception {
         //given
+
+
         String title = "title";
         String content = "content";
         PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
