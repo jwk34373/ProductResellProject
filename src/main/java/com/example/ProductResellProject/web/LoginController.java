@@ -1,34 +1,29 @@
 package com.example.ProductResellProject.web;
 
-import com.example.ProductResellProject.service.UserService;
+import com.example.ProductResellProject.service.AuthService;
+import com.example.ProductResellProject.web.dto.TokenDto;
+import com.example.ProductResellProject.web.dto.TokenRequestDto;
+import com.example.ProductResellProject.web.dto.UserRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class LoginController {
+    private final AuthService authService;
 
-    private final UserService userService;
-
-    @PostMapping("/api/login")
-    public String requestLogin(@PathVariable String userId,
-                               @PathVariable String userPwd){
-        class Res{
-            String id;
-            String pwd;
-        }
-        Res res = new Res();
-        res.id = userId;
-        res.pwd = userPwd;
-
-        Long answer = 123L;
-
-        return "hi";
+    @PostMapping("/login/request")
+    public ResponseEntity<TokenDto> login(@RequestBody UserRequestDto userRequestDto) {
+        return ResponseEntity.ok(authService.login(userRequestDto));
     }
-    // test !!!
 
-
+    @PostMapping("/reissue")
+    public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
+        return ResponseEntity.ok(authService.reissue(tokenRequestDto));
+    }
 }

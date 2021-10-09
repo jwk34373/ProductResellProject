@@ -1,6 +1,5 @@
 package com.example.ProductResellProject.domain.users;
 
-import com.example.ProductResellProject.web.dto.UserInfoDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -75,7 +74,7 @@ public class User implements UserDetails {
         this.userId = userId;
         this.userPwd = userPwd;
         this.name = name;
-        this.role = Role.USER;
+        this.role = Role.ROLE_USER;
     }
 
 

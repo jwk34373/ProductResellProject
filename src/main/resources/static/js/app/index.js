@@ -89,6 +89,7 @@ var main = {
             window.location.href = '/';
         }).fail(function (error) {
             alert('login fail');
+            //data: JSON.stringify(data)
         });
     },
     signup: function(){
