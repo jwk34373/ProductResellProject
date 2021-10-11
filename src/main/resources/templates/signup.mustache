@@ -1,6 +1,10 @@
 {{>layout/header}}
+<!--
+<meta name="_csrf_header" th:content="${_csrf.headerName}">
+<meta name="_csrf" th:content="${_csrf.token}">
+-->
 
-<h1>회원가입 화면</h1>
+<h1>회원가입</h1>
 
 <div class="col-md-12">
     <div class="col-md-4">
@@ -18,11 +22,11 @@
                 <input type="text" class="form-control" id="userPwd" placeholder="비밀번호를 입력하세요">
             </div>
             <div class="form-group">
-                <label for="passwordcheck"> 비밀번호 확인 </label>
+                <label for="passwordCheck"> 비밀번호 확인 </label>
                 <input type="text" class="form-control" id="userPwdCheck" placeholder="비밀번호확인을 입력하세요">
             </div>
         </form>
-        <a href="/login" role="button" class="btn btn-secondary">취소</a>
+        <a href="/" role="button" class="btn btn-secondary">취소</a>
         <button type="button" class="btn btn-primary" id="btn-requestSignup">회원가입</button>
     </div>
 </div>

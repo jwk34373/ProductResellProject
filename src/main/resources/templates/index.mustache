@@ -1,20 +1,47 @@
 {{>layout/header}}
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <h1>판매 목록 ver.2</h1>
+
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-6">
-            <a href="/posts/save" role="button" class="btn btn-primary">물품 등록</a>
+            {{#user}}
+                <a href="/posts/save" role="button" class="btn btn-primary">물품 등록</a>
+                <a href="/logout" class="btn btn-info active" role="button">로그 아웃</a>
+            {{/user}}
+
+            {{^user}}
+                <a href="/login" role="button" class="btn btn-login">로그인</a>
+                <a href="/signup" role="button" class="btn btn-primary">회원가입</a>
+            {{/user}}
         </div>
     </div>
 </div>
-<div class="col-md-12">
+
+<!--<<div class="col-md-12">
     <div class="row">
         <div class="col-md-6">
             <a href="/login" role="button" class="btn btn-login">로그인</a>
         </div>
     </div>
-</div>
+</div>-->
+
+<!--<ul sec:authorize="!isAuthenticated()" class="navbar-nav" >
+    <li class="nav-item">
+        <a href="/login" role="button" class="btn btn-login">로그인</a>
+        <a href="/signup" role="button" class="btn btn-primary">회원가입</a>
+    </li>
+</ul>
+
+<ul sec:authorize="isAuthenticated()" class="navbar-nav" >
+    <li class="nav-item">
+        <a href="/posts/save" role="button" class="btn btn-primary">물품 등록</a>
+        <a href="/logout" role="button" class="btn btn-primary">로그아웃</a>
+    </li>
+</ul>-->
+
+
 <br>
 <!-- 목록 출력 영역 -->
 <table class="table table-horizontal table-bordered">
@@ -37,6 +64,6 @@
     {{/posts}}
     </tbody>
 </table>
-</div>
+</html>
 
 {{>layout/footer}}
