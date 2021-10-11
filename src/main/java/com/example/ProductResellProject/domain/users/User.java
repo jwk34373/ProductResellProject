@@ -1,6 +1,8 @@
 package com.example.ProductResellProject.domain.users;
 
 import com.example.ProductResellProject.web.dto.UserInfoDto;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,8 @@ import java.util.Collection;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Getter
 public class User{
 
@@ -30,6 +34,7 @@ public class User{
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
 
     //== 생성 메서드 ==//
     @Builder

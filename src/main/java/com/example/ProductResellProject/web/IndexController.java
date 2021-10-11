@@ -33,7 +33,7 @@ public class IndexController {
         String user = (String) session.getAttribute("user");
 
         if(user != null) {
-            model.addAttribute("user", "test");
+            model.addAttribute("user", user);
         }
         return "index";
     }
@@ -66,11 +66,14 @@ public class IndexController {
         return "login";
     }
 
+    @GetMapping("/login-select")
+    public String loginSelect(){
+        return "login-select";
+    }
+
     @RequestMapping(value ="/login/request", method = RequestMethod.POST)
     @ResponseBody
     public Long requestLogin(@RequestBody LoginInfoDto loginInfoDto, HttpServletRequest request) {
         return userService.login(loginInfoDto, request);
-        //return null;
     }
-
 }
