@@ -20,7 +20,10 @@ public class PostsService {
 
     @Transactional
     public Long save(PostsSaveRequestDto requestDto) {
-        return postsRepository.save(requestDto.toEntity()).getId();
+        Posts posts = requestDto.toEntity();
+
+        postsRepository.save(posts);
+        return posts.imageUpdate(Long.toString(posts.getId())).getId();
     }
 
     @Transactional
