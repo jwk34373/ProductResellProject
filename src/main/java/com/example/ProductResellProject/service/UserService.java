@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UserService implements UserDetailsService {
+public class UserService {
 
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
@@ -36,14 +36,6 @@ public class UserService implements UserDetailsService {
         String encodePwd = passwordEncoder.encode(userInfoDto.getUserPwd());
         return usersRepository.save(userInfoDto.toEntity(encodePwd)).getId();
 
-    }
-
-
-    @Override
-    @Transactional
-    public User loadUserByUsername(String userId) throws UsernameNotFoundException {
-        return usersRepository.findByUserId(userId)
-                .orElseThrow(() -> new UsernameNotFoundException("not found userId : "+userId));
     }
 
     // userId 중복검사
