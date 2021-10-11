@@ -19,10 +19,62 @@
     </div>
 </div>
 
-
 <br>
+<style>
+.grid-container {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+}
+
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.grid-title{
+    width: 10px;
+    height: 100px;
+}
+.image-title {
+    text-align:center;
+    display:table;
+    border:1px solid #cecece;
+    width:280px;
+    height:250px;
+    }
+
+.image-box {
+    display:table-cell;
+    vertical-align:middle;
+    }
+
+.image {
+    max-width:180px;
+    max-height:180px;
+    }
+</style>
+
+<div class="grid-container">
+    {{#posts}}
+    <div class="grid-item">
+        <div class="image-title">
+            <div class="image-box">
+                <img class="image" src="/shoes.jpg">
+            </div>
+        </div>
+        <div class="grid-title">
+            <td><a href="/posts/update/{{id}}">{{title}}</a></td>
+        </div>
+    </div>
+    {{/posts}}
+</div>
+
 <!-- 목록 출력 영역 -->
-<table class="table table-horizontal table-bordered">
+<!--<table class="table table-horizontal table-bordered">
     <thead class="thead-strong">
     <tr>
         <th>게시글번호</th>
@@ -42,25 +94,6 @@
     {{/posts}}
     </tbody>
 </table>
-<div class="grid">
-    <div class="grid-item"><img src="/img/404.png" width="150"></div>
-    <div class="grid-item"><img src="/img/404.png" width="150"></div>
-    <div class="grid-item"><img src="/img/404.png" width="150"></div>
-</div>
-<style>
-    .grid-item {
-  float: left;
-  width: 150px;
-  height: 50px;
-  border: 2px solid hsla(0, 0%, 0%, 0.5);
-  gutter: 50;
-  margin-bottom: 10px;
-}
-
-.grid-item--width2 { width: 160px; }
-.grid-item--height2 { height: 140px; }
-</style>
-
-</html>
+</html>-->
 
 {{>layout/footer}}
