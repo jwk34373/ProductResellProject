@@ -1,5 +1,6 @@
 package com.example.ProductResellProject.web.dto;
 
+import com.example.ProductResellProject.domain.users.Role;
 import com.example.ProductResellProject.domain.users.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,13 +13,15 @@ public class UserInfoDto {
     private String userPwd;
     private String name;
     private String userPwdCheck;
+    private Role role;
 
     @Builder
-    public UserInfoDto(String userId, String userPwd, String name, String userPwdCheck) {
+    public UserInfoDto(String userId, String userPwd, String name, String userPwdCheck, Role role) {
         this.userId = userId;
         this.userPwd = userPwd;
         this.name = name;
         this.userPwdCheck = userPwdCheck;
+        this.role = role;
     }
 
     public User toEntity(String bcryptPwd){
@@ -26,6 +29,7 @@ public class UserInfoDto {
                 .userId(userId)
                 .userPwd(bcryptPwd)
                 .name(name)
+                .role(role)
                 .build();
     }
 

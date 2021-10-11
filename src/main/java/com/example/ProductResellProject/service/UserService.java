@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UserService implements UserDetailsService {
+public class UserService{
 
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
@@ -38,23 +38,22 @@ public class UserService implements UserDetailsService {
 
         String encodePwd = passwordEncoder.encode(userInfoDto.getUserPwd());
         return usersRepository.save(userInfoDto.toEntity(encodePwd)).getId();
-
     }
     // userId 중복검사
     private void validateDuplicateUser(String userId){
         Optional<User> user = usersRepository.findByUserId(userId);
         log.info("userId : " + userId);
         user.ifPresent(findUser -> {
-            throw new IllegalStateException("아이디 중복");
+            throw new RuntimeException("아이디 중복");
         });
     }
 
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        return usersRepository.findByUserId(userId)
-                .orElseThrow(() -> new UsernameNotFoundException("USER ID가 존재하지 않습니다."));
-    }
+//    @Override
+//    @Transactional
+//    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+//        return usersRepository.findByUserId(userId)
+//                .orElseThrow(() -> new UsernameNotFoundException("USER ID가 존재하지 않습니다."));
+//    }
 
     public Long login(LoginInfoDto loginInfoDto, HttpServletRequest request){
         check(loginInfoDto.getUserId(), loginInfoDto.getUserPwd());
