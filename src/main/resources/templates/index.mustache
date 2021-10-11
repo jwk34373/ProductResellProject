@@ -42,6 +42,25 @@
     {{/posts}}
     </tbody>
 </table>
+<div class="grid">
+    <div class="grid-item"><img src="/img/404.png" width="150"></div>
+    <div class="grid-item"><img src="/img/404.png" width="150"></div>
+    <div class="grid-item"><img src="/img/404.png" width="150"></div>
+</div>
+<style>
+    .grid-item {
+  float: left;
+  width: 150px;
+  height: 50px;
+  border: 2px solid hsla(0, 0%, 0%, 0.5);
+  gutter: 50;
+  margin-bottom: 10px;
+}
+
+.grid-item--width2 { width: 160px; }
+.grid-item--height2 { height: 140px; }
+</style>
+
 </html>
 
 {{>layout/footer}}
