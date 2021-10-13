@@ -41,7 +41,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests().antMatchers("/", "/login", "/signup").permitAll()
+                .headers().frameOptions().disable()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/", "/login", "/signup").permitAll()
+                //.antMatchers("/api/v1/**").hasRole(String.valueOf(Role.ROLE_USER))
                 //.anyRequest().authenticated()
 
                 // h2-console 을 위한 설정을 추가
