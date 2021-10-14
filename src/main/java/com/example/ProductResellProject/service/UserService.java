@@ -7,9 +7,6 @@ import com.example.ProductResellProject.web.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +18,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UserService{
+public class UserService {
 
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
@@ -48,17 +45,30 @@ public class UserService{
         });
     }
 
-//    @Override
-//    @Transactional
-//    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-//        return usersRepository.findByUserId(userId)
-//                .orElseThrow(() -> new UsernameNotFoundException("USER ID가 존재하지 않습니다."));
-//    }
+/*    @Override
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        Optional<User> memberWrapper = usersRepository.findByUserId(userId);
+        User member = memberWrapper.get();
+        log.info("loadUserByUsername Method");
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        return new (member.getUserId(), member.getUserPwd(), authorities);
+    }*/
 
     public Long login(LoginInfoDto loginInfoDto, HttpServletRequest request){
+        Optional<User> user = usersRepository.findByUserId(loginInfoDto.getUserId());
+        User userRole = user.get();
+        String roleCheck = String.valueOf(userRole.getRole());
+        HttpSession session = request.getSession();
+
         check(loginInfoDto.getUserId(), loginInfoDto.getUserPwd());
 
-        HttpSession session = request.getSession();
+        if(roleCheck.equals("ROLE_ADMIN")) {
+            session.setAttribute("role", roleCheck);
+        } else if(roleCheck.equals("ROLE_USER")){
+            session.setAttribute("role", roleCheck);
+        }
+
         session.setAttribute("user", loginInfoDto.getUserId());
 
         return 12L;
@@ -66,13 +76,13 @@ public class UserService{
 
     private boolean check(String userId, String userPwd){
         Optional<User> userWrapper = usersRepository.findByUserId(userId);
-
+        User member = userWrapper.get();
         if (userWrapper==null){
             log.info("해당 아이디가 존재하지 않습니다.");
             return false;
         }
 
-        if(!passwordEncoder.matches(userPwd, userWrapper.get().getUserPwd())){
+        if(!passwordEncoder.matches(userPwd, member.getUserPwd())){
             throw new BadCredentialsException("비밀번호가 틀립니다.");
         }
         return true;

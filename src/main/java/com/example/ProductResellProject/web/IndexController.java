@@ -31,7 +31,6 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("posts", postsService.findAllDesc());
-
         String user = (String) session.getAttribute("user");
         if(user != null) {
             model.addAttribute("user", user);
@@ -58,11 +57,17 @@ public class IndexController {
 }
 
     @GetMapping("/posts/detail/{id}")
-    public String postDetail(@PathVariable Long id, Model model) {
+    public String postDetail(@PathVariable Long id, Model model, UserInfoDto userInfoDto) {
         String user = (String) session.getAttribute("user");
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
-        if(user.equals(dto.getAuthor())) {
+        String userRole = (String) session.getAttribute("role");
+
+        if(user == null) {
+            return "redirect:/";
+        }
+
+        if(user.equals(dto.getAuthor()) || userRole.equals("ROLE_ADMIN")) {
             model.addAttribute("writer", true);
         } else {
             model.addAttribute("writer", false);

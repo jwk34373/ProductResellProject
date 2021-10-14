@@ -63,11 +63,16 @@
         <div class="grid-item">
             <div class="image-title">
                 <div class="image-box">
-                    <img class="image" src="/shoes.jpg">
+                    <a href="/posts/detail/{{id}}" >
+                        <img class="image" src="/shoes.jpg" />
+                    </a>
                 </div>
             </div>
             <div class="grid-title">
                 <td><a href="/posts/detail/{{id}}">{{title}}</a></td>
+            </div>
+            <div>
+                <h5> 작성자 : {{author}}</h5>
             </div>
         </div>
     {{/posts}}
