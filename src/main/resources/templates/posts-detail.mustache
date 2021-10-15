@@ -1,5 +1,6 @@
 {{>layout/header}}
 
+
 <style>
 .item1 { grid-area: header; }
 .item2 { grid-area: main; }
@@ -34,11 +35,14 @@
     }
 
 </style>
+</head>
+
+<body>
 
 <div class="grid-container">
     <input type="text" class="form-control" id="id" value="{{post.id}}" readonly>
-    <div class="item1">게시글 수정</div>
-    <input type="text" class="item2" id="title" value="{{post.title}}">
+    <div class="item1">게시글 상세 정보</div>
+    <div class="item2">{{post.title}}</div>
 </div>
 
 <div class="grid-container">
@@ -48,12 +52,21 @@
 </div>
 
 <div class="grid-container">
-    <input type="text" class="item2" id="content" value="{{post.content}}">
+    <div class="item2">{{post.content}}</div>
 </div>
 
 <div class="col-md-12">
     <div class="col-md-4">
-        <button type="button" class="btn btn-primary" id="btn-update">수정완료</button>
+        <a href="/" role="button" class="btn btn-secondary">돌아가기</a>
+        {{#writer}}
+            <a href="/posts/update/{{id}}" role="button" class="btn btn-secondary">수정하기</a>
+            <button type="button" class="btn btn-danger" id="btn-delete">삭제하기</button>
+        {{/writer}}
     </div>
+</div>
+
+
+
+
 
 {{>layout/footer}}
