@@ -1,14 +1,5 @@
 var main = {
     init : function() {
-        // init Masonry
-        var $grid = $('.grid').masonry({
-          // options...
-        });
-        // layout Masonry after each image loads
-        $grid.imagesLoaded().progress( function() {
-          $grid.masonry('layout');
-        });
-
         var _this = this;
         $('#btn-save').on('click',  function() {
             _this.save();
