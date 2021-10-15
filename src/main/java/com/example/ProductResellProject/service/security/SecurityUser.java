@@ -1,7 +1,6 @@
 package com.example.ProductResellProject.service.security;
 
 import com.example.ProductResellProject.domain.users.User;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
