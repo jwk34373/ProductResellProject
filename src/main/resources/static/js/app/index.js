@@ -1,14 +1,5 @@
 var main = {
     init : function() {
-        // init Masonry
-        var $grid = $('.grid').masonry({
-          // options...
-        });
-        // layout Masonry after each image loads
-        $grid.imagesLoaded().progress( function() {
-          $grid.masonry('layout');
-        });
-
         var _this = this;
         $('#btn-save').on('click',  function() {
             _this.save();
@@ -27,18 +18,24 @@ var main = {
         })
     },
     save : function() {
-        var data = {
-            title: $('#title').val(),
-            author: $('#author').val(),
-            content: $('#content').val()
-        };
+//        var form = $('#upload-form')[0]
+        var formData = new FormData();
+        formData.append("title", $('#title').val());
+        formData.append("author", $('#author').val());
+        formData.append("content", $('#content').val());
+        formData.append("file", $('#file')[0].files[0]);
+//        var data = {
+//            title: $('#title').val(),
+//            author: $('#author').val(),
+//            content: $('#content').val()
+//        };
 
         $.ajax({
             type: 'POST',
             url: '/api/v1/posts',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
+            processData: false,
+            contentType: false,
+            data: formData
         }).done(function() {
             alert('물품이 등록됨');
             window.location.href = '/';
