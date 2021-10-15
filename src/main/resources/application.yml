@@ -25,7 +25,7 @@ spring:
       driver-class-name: org.mariadb.jdbc.Driver
 
   output.ansi.enabled: always  # terminal color
-  
-  servlet.multipart: # image size
+
+  servlet.multipart:    # image size
     max-file-size: 5MB
     max-request-size: 5MB

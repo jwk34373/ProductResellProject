@@ -17,6 +17,14 @@
                 <label for="content"> 내용 </label>
                 <textarea class="form-control" id="content" placeholder="내용을 입력하세요"></textarea>
             </div>
+            <div>
+                <form id="upload-form" method="POST" enctype="multipart/form-data" action="">
+                    <table>
+                        <tr><td>File to upload:</td><td><input type="file" name="file" id="file" /></td></tr>
+<!--                        <tr><td></td><td><input type="submit" value="Upload" /></td></tr>-->
+                    </table>
+                </form>
+            </div>
         </form>
         <a href="/" role="button" class="btn btn-secondary">취소</a>
         <button type="button" class="btn btn-primary" id="btn-save">등록</button>
