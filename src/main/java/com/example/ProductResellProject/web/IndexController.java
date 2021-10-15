@@ -7,6 +7,7 @@ import com.example.ProductResellProject.web.dto.LoginInfoDto;
 import com.example.ProductResellProject.web.dto.PostsResponseDto;
 import com.example.ProductResellProject.web.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class IndexController {
@@ -29,9 +31,7 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("posts", postsService.findAllDesc());
-
         String user = (String) session.getAttribute("user");
-
         if(user != null) {
             model.addAttribute("user", user);
         }
@@ -43,11 +43,37 @@ public class IndexController {
         return "posts-save";
     }
 
-    @GetMapping("/posts/update/{id}")
+/*    @GetMapping("/posts/update/{id}")
     public String postUpdate(@PathVariable Long id, Model model) {
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
         return "posts-update";
+    }*/
+    @GetMapping("/posts/update/{id}")
+    public String postUpdate(@PathVariable Long id, Model model) {
+    PostsResponseDto dto = postsService.findById(id);
+    model.addAttribute("post", dto);
+    return "posts-update";
+}
+
+    @GetMapping("/posts/detail/{id}")
+    public String postDetail(@PathVariable Long id, Model model, UserInfoDto userInfoDto) {
+        String user = (String) session.getAttribute("user");
+        PostsResponseDto dto = postsService.findById(id);
+        model.addAttribute("post", dto);
+        String userRole = (String) session.getAttribute("role");
+
+        if(user == null) {
+            return "redirect:/";
+        }
+
+        if(user.equals(dto.getAuthor()) || userRole.equals("ROLE_ADMIN")) {
+            model.addAttribute("writer", true);
+        } else {
+            model.addAttribute("writer", false);
+        }
+
+        return "posts-detail";
     }
 
     @GetMapping("/signup")
