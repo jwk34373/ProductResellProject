@@ -22,6 +22,7 @@ public class FileSystemStorageService {
         log.info("file.getOriginalFilename() : "+ file.getOriginalFilename());
         log.info("file.getContentType() :" + file.getContentType());
 
+
         Path destinationFile = this.rootLocation.resolve(
                         Paths.get(file.getOriginalFilename()))
                 .normalize().toAbsolutePath();
