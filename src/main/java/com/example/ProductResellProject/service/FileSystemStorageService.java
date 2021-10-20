@@ -33,6 +33,5 @@ public class FileSystemStorageService {
         } catch (IOException e) {
             throw new StorageException("failed to store");
         }
-
     }
 }
