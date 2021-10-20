@@ -38,7 +38,8 @@ public class PostsApiController {
     }
 
     @PutMapping("/api/v1/posts/{id}")
-    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
+    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto, MultipartHttpServletRequest req) {
+        storageService.store(req.getFile("file"), id);
         return postsService.update(id, requestDto);
     }
 

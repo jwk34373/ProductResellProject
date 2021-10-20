@@ -37,10 +37,10 @@ var main = {
         });
     },
     update : function () {
-            var data = {
-                title: $('#title').val(),
-                content: $('#content').val()
-            };
+        var formData = new FormData();
+        formData.append("title", $('#title').val());
+        formData.append("content", $('#content').val());
+        formData.append("file", $('#file')[0].files[0]);
 
             var id = $('#id').val();
 
