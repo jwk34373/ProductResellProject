@@ -24,16 +24,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    // authenticationManager를 Bean을 등록.
-/*    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }*/
-
-    // h2 database 테스트가 원활하도록 관련 API 들은 전부 무시
-    // 테스트용 쓰고 변경해야함.
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
@@ -47,8 +37,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/signup").permitAll()
-                //.antMatchers("/api/v1/**").hasRole(String.valueOf(Role.ROLE_USER))
-                //.anyRequest().authenticated()
 
                 // h2-console 을 위한 설정을 추가
                 .and()
@@ -78,8 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
-                //.antMatchers("/login").permitAll()
-                //.antMatchers("/signup").permitAll()
                 .anyRequest().authenticated();
     }
 }

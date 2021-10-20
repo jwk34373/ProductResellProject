@@ -6,12 +6,26 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 @Getter
 @NoArgsConstructor
 public class UserInfoDto {
+
+    @NotBlank
+    @Size(min = 3, max = 20)
     private String userId;
+    @NotBlank
+    @Size(min = 3, max = 20)
     private String userPwd;
+    @NotBlank
+    @Size(min = 3, max = 20)
     private String name;
+    @NotBlank
+    @Size(min = 3, max = 20)
     private String userPwdCheck;
     private Role role;
 
