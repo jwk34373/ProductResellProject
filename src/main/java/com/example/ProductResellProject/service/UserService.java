@@ -25,8 +25,6 @@ public class UserService {
 
     @Transactional
     public Long save(UserInfoDto userInfoDto) {
-//        log.info(userInfoDto.toString());
-//        log.info("pwd encode : " + passwordEncoder.encode(userInfoDto.getUserPwd()));
 
         validateDuplicateUser(userInfoDto.getUserId()); // ID 중복 체크
         if(!userInfoDto.getUserPwd().equals(userInfoDto.getUserPwdCheck())){    // pwd 체크
@@ -36,7 +34,7 @@ public class UserService {
         String encodePwd = passwordEncoder.encode(userInfoDto.getUserPwd());
         return usersRepository.save(userInfoDto.toEntity(encodePwd)).getId();
     }
-    // userId 중복검사
+
     private void validateDuplicateUser(String userId){
         Optional<User> user = usersRepository.findByUserId(userId);
         log.info("userId : " + userId);
@@ -44,16 +42,6 @@ public class UserService {
             throw new RuntimeException("아이디 중복");
         });
     }
-
-/*    @Override
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        Optional<User> memberWrapper = usersRepository.findByUserId(userId);
-        User member = memberWrapper.get();
-        log.info("loadUserByUsername Method");
-        List<GrantedAuthority> authorities = new ArrayList<>();
-
-        return new (member.getUserId(), member.getUserPwd(), authorities);
-    }*/
 
     public Long login(LoginInfoDto loginInfoDto, HttpServletRequest request){
         Optional<User> user = usersRepository.findByUserId(loginInfoDto.getUserId());
@@ -87,42 +75,4 @@ public class UserService {
         }
         return true;
     }
-
 }
-
-
-
-//jwt token 테스트 코드
-
-/*    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        return usersRepository.findByUserId(userId)
-                .map(this::createUserDetails)
-                .orElseThrow(() -> new UsernameNotFoundException("USER ID가 존재하지 않습니다."));
-    }
-
-    private UserDetails createUserDetails(User user){
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(user.getAuthorities().toString());
-
-        return new org.springframework.security.core.userdetails.User(
-                String.valueOf(user.getUserId()),
-                user.getUserPwd(),
-                Collections.singleton(grantedAuthority)
-        );
-    }
-
-    @Transactional(readOnly = true)
-    public UserResponseDto getUserInfo(String userid){
-        return usersRepository.findByUserId(userid)
-                .map(UserResponseDto::of)
-                .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
-    }
-
-    //현재 SecurityContext에 있는 유저 정보 가져오기
-    @Transactional(readOnly = true)
-    public UserResponseDto getMyInfo() {
-        return usersRepository.findById(SecurityUtil.getCurrentUserId())
-                .map(UserResponseDto::of)
-                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
-    }*/

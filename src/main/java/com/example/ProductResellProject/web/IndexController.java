@@ -13,12 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 
 
@@ -27,12 +31,6 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class IndexController {
 
-
-    @Value("${file.path}")
-    private String fileRealPath;
-
-    @Autowired
-    UsersRepository usersRepository;
 
     private final PostsService postsService;
     private final UserService userService;
@@ -95,7 +93,15 @@ public class IndexController {
 
     @RequestMapping(value = "/signup/request", method = RequestMethod.POST)
     @ResponseBody
-    public Long requestSignUp(@RequestBody UserInfoDto userInfoDto) {
+    public Long requestSignUp(@RequestBody @Valid UserInfoDto userInfoDto,
+                              BindingResult errors) {
+        if(errors.hasErrors()){
+            errors.getFieldErrors().stream().forEach(fieldError -> {
+                String fieldName = fieldError.getField();
+                String errorMsg = fieldError.getDefaultMessage();
+                throw new IllegalArgumentException(fieldName + " : " + errorMsg);
+            });
+        }
         return userService.save(userInfoDto);
     }
 

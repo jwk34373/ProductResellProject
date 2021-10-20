@@ -19,17 +19,10 @@ var main = {
 
     },
     save : function() {
-//        var form = $('#upload-form')[0]
         var formData = new FormData();
         formData.append("title", $('#title').val());
-        formData.append("author", $('#author').val());
         formData.append("content", $('#content').val());
         formData.append("file", $('#file')[0].files[0]);
-//        var data = {
-//            title: $('#title').val(),
-//            author: $('#author').val(),
-//            content: $('#content').val()
-//        };
 
   function getOriginalName(data) {
 		var idxStart = data.lastIndexOf("_")+1;
@@ -108,12 +101,6 @@ var main = {
         });
     },
     signup: function(){
-//        var role
-//        if($('#admin').checked == true){
-//            role = "ADMIN";
-//        } else {
-//            role = "USER";
-//        }
         var data = {
             userId: $('#userId').val(),
             userPwd: $('#userPwd').val(),
