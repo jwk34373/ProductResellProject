@@ -9,11 +9,13 @@
             {{#user}}
                 <a href="/posts/save" role="button" class="btn btn-primary">물품 등록</a>
                 <a href="/logout" class="btn btn-info active" role="button">로그 아웃</a>
+                <div>{{user}}님 환영합니다. </div>
             {{/user}}
 
             {{^user}}
                 <a href="/login-select" role="button" class="btn btn-login">로그인</a>
                 <a href="/signup" role="button" class="btn btn-primary">회원가입</a>
+                <div>guest님 환영합니다. </div>
             {{/user}}
         </div>
     </div>
@@ -64,7 +66,7 @@
             <div class="image-title">
                 <div class="image-box">
                     <a href="/posts/detail/{{id}}" >
-                        <img class="image" src="/shoes.jpg" />
+                        <img class="image" src="../{{id}}.jpg" />
                     </a>
                 </div>
             </div>

@@ -10,8 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @RestController
@@ -19,18 +18,22 @@ import javax.servlet.http.HttpServletRequest;
 public class PostsApiController {
     private final PostsService postsService;
     private final FileSystemStorageService storageService;
+    private final HttpSession session;
 
-    @PostMapping("/api/v1/posts") //@RequestBody PostsSaveRequestDto requestDto,
-    public Long save(HttpServletRequest req) {//@RequestParam("file") MultipartFile file
+    @PostMapping("/api/v1/posts")
+    public Long save(MultipartHttpServletRequest req) {
+        if(session == null) throw new IllegalStateException("login 필요");
+
+        String user = session.getAttribute("user").toString();
+
         PostsSaveRequestDto dto = PostsSaveRequestDto.builder()
                 .title(req.getParameter("title"))
-                .author(req.getParameter("author"))
+                .author(user)
                 .content(req.getParameter("content"))
                 .build();
 
         Long postId = postsService.save(dto);
-        MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest)req;
-        storageService.store(multiReq.getFile("file"), postId);
+        storageService.store(req.getFile("file"), postId);
         return 1L;
     }
 
