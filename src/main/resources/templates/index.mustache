@@ -10,8 +10,8 @@
     <div class="row">
         <div class="col-md-6">
             {{#user}}
-                    <a href="/posts/save" role="button" class="btn btn-primary">물품 등록</a>
-                    <a href="/logout" class="btn btn-info active" role="button">로그 아웃</a>
+                <a href="/posts/save" role="button" class="btn btn-primary">물품 등록</a>
+                <a href="/logout" class="btn btn-info active" role="button">로그 아웃</a>
             {{/user}}
 
             {{^user}}
@@ -67,7 +67,11 @@
             <div class="image-title">
                 <div class="image-box">
                     <a href="/posts/detail/{{id}}" >
+<<<<<<< HEAD
                         <img class="image" src="shoes.jpg" />
+=======
+                        <img class="image" src="../{{id}}.jpg" />
+>>>>>>> master
                     </a>
                 </div>
             </div>
