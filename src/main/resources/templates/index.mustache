@@ -43,7 +43,7 @@
     text-align:center;
     display:table;
     border:1px solid #cecece;
-    width:280px;
+    width:350px;
     height:250px;
     }
 
@@ -52,9 +52,15 @@
     vertical-align:middle;
     }
 
-.image {
-    max-width:180px;
-    max-height:180px;
+.uploadResult {
+    max-width:350x;
+    max-height:250px;
+
+    }
+.uploadResult {
+   width:100%;
+   height:100%;
+   object-fit:cover;
     }
 </style>
 
@@ -64,7 +70,9 @@
             <div class="image-title">
                 <div class="image-box">
                     <a href="/posts/detail/{{id}}" >
-                        <img class="image" src="/shoes.jpg" />
+                        <div class="uploadResult">
+                            <img src="/upload-dir/.jpg"></div>
+
                     </a>
                 </div>
             </div>
@@ -76,6 +84,8 @@
             </div>
         </div>
     {{/posts}}
+
+
 </div>
 
 {{>layout/footer}}

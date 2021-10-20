@@ -16,6 +16,7 @@ var main = {
         $('#btn-requestSignup').on('click', function(){
             _this.signup();
         })
+
     },
     save : function() {
 //        var form = $('#upload-form')[0]
@@ -29,6 +30,14 @@ var main = {
 //            author: $('#author').val(),
 //            content: $('#content').val()
 //        };
+
+  function getOriginalName(data) {
+		var idxStart = data.lastIndexOf("_")+1;
+		var name = data.substring(idxStart);
+		return name;
+	}
+
+
 
         $.ajax({
             type: 'POST',
@@ -125,6 +134,7 @@ var main = {
             alert(JSON.stringify(error));
         });
     }
+
 };
 
 main.init();

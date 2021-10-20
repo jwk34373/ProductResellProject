@@ -1,6 +1,7 @@
 package com.example.ProductResellProject.web;
 
 import com.example.ProductResellProject.domain.users.UsersRepository;
+import com.example.ProductResellProject.service.FileSystemStorageService;
 import com.example.ProductResellProject.service.PostsService;
 import com.example.ProductResellProject.service.UserService;
 import com.example.ProductResellProject.web.dto.LoginInfoDto;
@@ -9,17 +10,26 @@ import com.example.ProductResellProject.web.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class IndexController {
+
+
+    @Value("${file.path}")
+    private String fileRealPath;
 
     @Autowired
     UsersRepository usersRepository;
@@ -27,16 +37,18 @@ public class IndexController {
     private final PostsService postsService;
     private final UserService userService;
     private final HttpSession session;
+    private final FileSystemStorageService storageService;
 
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("posts", postsService.findAllDesc());
         String user = (String) session.getAttribute("user");
-        if(user != null) {
+        if (user != null) {
             model.addAttribute("user", user);
         }
         return "index";
     }
+
 
     @GetMapping("/posts/save")
     public String postSave() {
