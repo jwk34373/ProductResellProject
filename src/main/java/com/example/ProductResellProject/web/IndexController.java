@@ -1,6 +1,5 @@
 package com.example.ProductResellProject.web;
 
-import com.example.ProductResellProject.domain.users.UsersRepository;
 import com.example.ProductResellProject.service.PostsService;
 import com.example.ProductResellProject.service.UserService;
 import com.example.ProductResellProject.web.dto.LoginInfoDto;
@@ -8,7 +7,6 @@ import com.example.ProductResellProject.web.dto.PostsResponseDto;
 import com.example.ProductResellProject.web.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -44,12 +40,6 @@ public class IndexController {
         return "posts-save";
     }
 
-/*    @GetMapping("/posts/update/{id}")
-    public String postUpdate(@PathVariable Long id, Model model) {
-        PostsResponseDto dto = postsService.findById(id);
-        model.addAttribute("post", dto);
-        return "posts-update";
-    }*/
     @GetMapping("/posts/update/{id}")
     public String postUpdate(@PathVariable Long id, Model model) {
     PostsResponseDto dto = postsService.findById(id);
