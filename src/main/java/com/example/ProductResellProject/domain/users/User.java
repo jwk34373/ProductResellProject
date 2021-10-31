@@ -1,16 +1,11 @@
 package com.example.ProductResellProject.domain.users;
 
-import com.example.ProductResellProject.web.dto.UserInfoDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 @NoArgsConstructor
@@ -34,6 +29,13 @@ public class User{
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+/*    public List<String> getRoleList() {
+        if(this.roles.length() > 0 ){
+            return Arrays.asList(this.roles.split(","));
+        }
+        return null;
+    }*/
 
 
     //== 생성 메서드 ==//

@@ -79,7 +79,7 @@ var main = {
         };
         $.ajax({
             type: 'POST',
-            url: '/login/request',
+            url: '/login',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -87,8 +87,8 @@ var main = {
             alert('login success');
             window.location.href = '/';
         }).fail(function (error) {
-            alert('login fail');
-            //data: JSON.stringify(data)
+            //alert('login fail');
+            data: JSON.stringify(data)
         });
     },
     signup: function(){

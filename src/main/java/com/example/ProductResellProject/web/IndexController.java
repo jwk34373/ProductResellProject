@@ -2,7 +2,6 @@ package com.example.ProductResellProject.web;
 
 import com.example.ProductResellProject.service.PostsService;
 import com.example.ProductResellProject.service.UserService;
-import com.example.ProductResellProject.web.dto.LoginInfoDto;
 import com.example.ProductResellProject.web.dto.PostsResponseDto;
 import com.example.ProductResellProject.web.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -96,9 +94,9 @@ public class IndexController {
         return "login-select";
     }
 
-    @RequestMapping(value ="/login/request", method = RequestMethod.POST)
+/*    @RequestMapping(value ="/login/request", method = RequestMethod.POST)
     @ResponseBody
     public Long requestLogin(@RequestBody LoginInfoDto loginInfoDto, HttpServletRequest request) {
         return userService.login(loginInfoDto, request);
-    }
+    }*/
 }
