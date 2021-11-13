@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -30,12 +33,12 @@ public class User{
     @Enumerated(EnumType.STRING)
     private Role role;
 
-/*    public List<String> getRoleList() {
-        if(this.roles.length() > 0 ){
-            return Arrays.asList(this.roles.split(","));
+    public List<String> getRoleList() {
+        if(Role.values().length > 0) {
+            return Arrays.asList(Role.values().toString().split(","));
         }
-        return null;
-    }*/
+        return new ArrayList<>();
+    }
 
 
     //== 생성 메서드 ==//
@@ -46,6 +49,5 @@ public class User{
         this.name = name;
         this.role = role;
     }
-
 }
 
