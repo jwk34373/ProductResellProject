@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/header :: head-header"></head>
+<body>
+
+<div class="grid-container"  th:object="${post}">
+    <input type="hidden" class="form-control" id="id" th:field="*{id}" readonly>
+    <div class="item1">게시글 상세 정보</div>
+    <div class="item2">[[${title}]]</div>
+
+    <div class="item2">
+        <img class="image" src="/shoes.jpg" />
+        <h5><input type="file" name="file" id="file" /></h5>
+    </div>
+
+    <div class="item2">[[${post.content}]]</div>
+</div>
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <a href="/" role="button" class="btn btn-secondary">돌아가기</a>
+        <div class="user" th:if="${writer} != null">
+            <a th:href="@{/posts/update/{id}(id = ${post.id})}" role="button" class="btn btn-secondary">수정하기</a>
+            <button type="button" class="btn btn-danger" id="btn-delete">삭제하기</button>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="layout/footer :: footer"></th:block>
+</body>
+</html>

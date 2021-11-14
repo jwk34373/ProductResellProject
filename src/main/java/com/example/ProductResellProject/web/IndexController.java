@@ -39,48 +39,12 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/posts/save")
-    public String postSave() {
-        return "posts-save";
-    }
-
 /*    @GetMapping("/posts/update/{id}")
     public String postUpdate(@PathVariable Long id, Model model) {
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
         return "posts-update";
     }*/
-    @GetMapping("/posts/update/{id}")
-    public String postUpdate(@PathVariable Long id, Model model) {
-    PostsResponseDto dto = postsService.findById(id);
-    model.addAttribute("post", dto);
-    return "posts-update";
-}
-
-    @GetMapping("/posts/detail/{id}")
-    public String postDetail(@PathVariable Long id, Model model, UserInfoDto userInfoDto) {
-        String user = (String) session.getAttribute("user");
-        PostsResponseDto dto = postsService.findById(id);
-        model.addAttribute("post", dto);
-        String userRole = (String) session.getAttribute("role");
-
-        if(user == null) {
-            return "redirect:/";
-        }
-
-        if(user.equals(dto.getAuthor()) || userRole.equals("ROLE_ADMIN")) {
-            model.addAttribute("writer", true);
-        } else {
-            model.addAttribute("writer", false);
-        }
-
-        return "posts-detail";
-    }
-
-    @GetMapping("/signup")
-    public String signup() {
-        return "signup";
-    }
 
     @RequestMapping(value = "/signup/request", method = RequestMethod.POST)
     @ResponseBody
@@ -97,7 +61,8 @@ public class IndexController {
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login(Model model){
+        model.addAttribute("login", new LoginInfoDto());
         return "login";
     }
 

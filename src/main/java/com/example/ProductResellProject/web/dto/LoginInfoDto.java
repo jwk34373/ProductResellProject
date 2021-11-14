@@ -4,8 +4,9 @@ import com.example.ProductResellProject.domain.users.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 public class LoginInfoDto {
     private String userId;

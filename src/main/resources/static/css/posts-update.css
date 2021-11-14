@@ -1,0 +1,31 @@
+.item1 { grid-area: header; }
+.item2 { grid-area: main; }
+.item3 { grid-area: right; }
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'menu menu main main right right'
+    'menu menu footer footer right right';
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+.image-box {
+    display:table-cell;
+    vertical-align:middle;
+    }
+.image {
+    max-width: 100%;
+	font-family: system-ui, serif;
+	font-size: 1rem;
+	padding: 1rem;
+	border-radius: 1rem;
+    }

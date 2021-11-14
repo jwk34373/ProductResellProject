@@ -1,4 +1,6 @@
-{{>layout/header}}
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/header :: head-header"></head>
+<body>
 
 <h1>게시글 등록</h1>
 
@@ -26,4 +28,6 @@
     </div>
 </div>
 
-{{>layout/footer}}
+<th:block th:replace="layout/footer :: footer"></th:block>
+</body>
+</html>
