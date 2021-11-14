@@ -4,6 +4,7 @@ import com.example.ProductResellProject.service.PostsService;
 import com.example.ProductResellProject.service.PostsServiceImpl;
 import com.example.ProductResellProject.web.dto.PostsResponseDto;
 import com.example.ProductResellProject.web.dto.UserInfoDto;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,7 @@ public class PostsController {
     }
 
     @GetMapping("/posts/detail/{id}")
+    @ApiOperation(value = "물품 상세보기", notes = "등록한 물품 상세 볼 수 있음.")
     public String postDetail(@PathVariable Long id, Model model, UserInfoDto userInfoDto) {
         String user = (String) session.getAttribute("user");
         PostsResponseDto dto = postsService.findById(id);

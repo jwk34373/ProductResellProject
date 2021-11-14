@@ -13,7 +13,7 @@ import java.nio.file.StandardCopyOption;
 
 @Service
 @Slf4j
-public class FileSystemStorageService { // 주석 추가 필요
+public class FileSystemStorageService {
 
     private final Path rootLocation = Path.of("upload-dir");
 

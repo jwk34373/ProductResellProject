@@ -1,12 +1,7 @@
-@charset "UTF-8";
-div.header{
-    text-align:center
-}
-h1 {
-    text-align:center;
-}
-*{margin: 0; padding: 0;}
-.main_title {
+* {
+            margin: 0; padding: 0;
+        }
+        .main_title {
              width: 100%; height: 50px;
             /* height 값과 동일하게 하면 수직 중앙으로 정렬한다. */
             line-height: 25px;

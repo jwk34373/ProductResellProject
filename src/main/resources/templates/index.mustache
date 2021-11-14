@@ -1,87 +1,5 @@
 
 {{>layout/header}}
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<style>
- * {
-    margin: 0; padding: 0;
-        }
-        .main_title {
-             width: 100%; height: 50px;
-            /* height 값과 동일하게 하면 수직 중앙으로 정렬한다. */
-            line-height: 25px;
-            /* 글자를 안쪽으로 밀어 넣는다. */
-            font-size: 10px;
-            font-weight: bold;
-
-            text-align: center;
-
-        }
-
-       .row {
-        margin-right: -270%;
-
-        }
-
-        .wrapper {
-            width: 90%;
-            /* 1100px 이상(원본) 늘어나지 않는다. 너비의 최대값 */
-            height: auto;
-            max-width: 980px;
-            /* 760px 이하로 줄어들지 않는다. 너비의 최소값 */
-            min-width: 760px;
-            /* 상하마진 50px, 좌우 마진은 균등하게(중앙정렬) */
-            margin: 100px auto;
-            background-color:#D7D7D7
-        }
-        .card {
-            display: inline-block;
-            width: 300px;
-            height: 485px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px gba(0,0,0,0.20);
-            padding: 15px;
-            margin: 10px;
-            transition: 0.3s ease-in;
-        }
-        .card:hover{
-            box-shadow: 0 16px 30px 0 rgba(0,0,0,0.20);
-            transition: 0.3s ease-in;
-         }
-
-        .card img {
-            width: 100%;
-            height: 100%;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 15px;
-            margin-bottom: 5px;
-        }
-        .title {
-            font-family: "맑은 고딕", 돋움;
-            font-size: 25px;
-            color: #333;
-            margin: 0; padding: 10px;
-        }
-        h5 {
-            font-family: "맑은 고딕", 돋움;
-            font-size: 15px;
-            color: #333;
-            margin: 0; padding: 10px;
-        }
-        @media screen and (min-width: 960px) {
-            #columns {
-                -webkit-column-count: 3;
-                -moz-column-count: 3;
-                column-count: 3;
-            }
-        }
-        @media screen and (min-width: 1100px) {
-            #columns {
-                -webkit-column-count: 4;
-                -moz-column-count: 4;
-                column-count: 4;
-            }
-        }
-</style>
 <center>
     <div class="col-md-12">
         <div class="row">
@@ -93,7 +11,6 @@
                     <i class="fas fa-sign-out-alt"></i>
                     <a href="/logout" class="btn btn-info active" role="button">로그아웃</a>
                 {{/user}}
-
                 {{^user}}
                     <i class="fas fa-sign-in-alt"></i>
                     <a href="/login-select" role="button" class="btn btn-login">로그인</a>
@@ -103,12 +20,10 @@
             </div>
         </div>
     </div>
-    </br>
-    <div class="main_title">
 
+    <div class="main_title">
         <i class="fas fa-store fa-5x" > 중고번개당근자라나라 </i>
         <a href="/" ></a>
-
     </div>
 </center>
 
@@ -128,6 +43,6 @@
         </div>
     {{/posts}}
 </div>
-</html>
+
 
 {{>layout/footer}}
