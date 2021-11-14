@@ -23,6 +23,11 @@ var main = {
         formData.append("title", $('#title').val());
         formData.append("content", $('#content').val());
         formData.append("file", $('#file')[0].files[0]);
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', sessionStorage.getItem("Authorization"))
+            }
+        });
 
   function getOriginalName(data) {
 		var idxStart = data.lastIndexOf("_")+1;
@@ -46,28 +51,40 @@ var main = {
         });
     },
     update : function () {
-            var data = {
-                title: $('#title').val(),
-                content: $('#content').val()
-            };
+        var formData = new FormData();
+        formData.append("title", $('#title').val());
+        formData.append("content", $('#content').val());
+        formData.append("file", $('#file')[0].files[0]);
 
-            var id = $('#id').val();
+        var id = $('#id').val();
 
-            $.ajax({
-                type: 'PUT',
-                url: '/api/v1/posts/'+id,
-                dataType: 'json',
-                contentType:'application/json; charset=utf-8',
-                data: JSON.stringify(data)
-            }).done(function() {
-                alert('글이 수정되었습니다.');
-                window.location.href = '/';
-            }).fail(function (error) {
-                alert(JSON.stringify(error));
-            });
-        },
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', sessionStorage.getItem("Authorization"))
+            }
+        });
+        $.ajax({
+            type: 'PUT',
+            url: '/api/v1/posts/'+id,
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('글이 수정되었습니다.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
     delete : function () {
             var id = $('#id').val();
+            //var result = authRequest('/api/v1/posts/'+id, 'DELETE', null)
+
+            $.ajaxSetup({
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', sessionStorage.getItem("Authorization"))
+                }
+            });
 
             $.ajax({
                 type: 'DELETE',
@@ -86,18 +103,28 @@ var main = {
             userId: $('#userId').val(),
             userPwd: $('#userPwd').val()
         };
+
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', sessionStorage.getItem("Authorization"))
+            }
+        });
+
         $.ajax({
             type: 'POST',
-            url: '/login/request',
-            dataType: 'json',
+            url: '/login',
+            //dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
-        }).done(function() {
-            alert('login success');
+        }).done(function(data) {
+        var requestJwt = data;
+            alert(requestJwt);
+            sessionStorage.setItem("Authorization", "Bearer "+data);
             window.location.href = '/';
         }).fail(function (error) {
-            alert('login fail');
-            //data: JSON.stringify(data)
+            //alert('login fail');
+            alert(data);
+            data: JSON.stringify(data)
         });
     },
     signup: function(){
@@ -108,6 +135,14 @@ var main = {
             name: $('#userName').val(),
             role: $(':radio[name="role"]:checked').val()
         };
+        authRequest('/signup/request', 'POST', data);
+
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', sessionStorage.getItem("Authorization"))
+            }
+        });
+
         $.ajax({
             type: 'POST',
             url: '/signup/request',
@@ -120,8 +155,23 @@ var main = {
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
-    }
 
+    }
 };
 
 main.init();
+
+/*function authRequest(url, methodType, data){
+       ajax({
+           type: methodType,
+           url: url,
+           dataType: 'json',
+           contentType:'application/json; charset=utf-8',
+           data: JSON.stringify(data)
+           headers: {"Authorization" : sessionStorage.getItem("Authorization")}
+           }).done(function () {
+              alert('success');
+           }).fail(function (error) {
+              alert("fail");
+        });
+}*/

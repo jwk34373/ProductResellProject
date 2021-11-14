@@ -24,11 +24,4 @@ public class LoginInfoDto {
                 .build();
     }
 
-    @Override
-    public String toString() {
-        return "UserInfoDto{" +
-                "userId='" + userId + '\'' +
-                ", userPwd='" + userPwd + '\'' +
-                '}';
-    }
 }

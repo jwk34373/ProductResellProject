@@ -1,46 +1,39 @@
-package com.example.ProductResellProject.service.security;
+package com.example.ProductResellProject.configuration.auth;
 
 import com.example.ProductResellProject.domain.users.User;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
-@Getter
-@NoArgsConstructor
-public class SecurityUser implements UserDetails {
-    private String userId;
-    private String userPwd;
-    private String name;
+@Data
+public class PrincipalDetails implements UserDetails {
 
-    private boolean isEnabled;
-    private boolean isAccountNonExpired;
-    private boolean isAccountNonLocked;
-    private boolean isCredentialsNonExpired;
-    private Collection<? extends  GrantedAuthority> authorities;
+    private User user;
 
-    public SecurityUser(User user){
-        userId = user.getUserId();
-        userPwd = user.getUserPwd();
-        name = user.getName();
+    public PrincipalDetails(User user) {
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Role
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        user.getRoleList().forEach(r-> {
+            authorities.add(()->r);
+        });
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        return userPwd;
+        return user.getUserPwd();
     }
 
     @Override
     public String getUsername() {
-        return userId;
+        return user.getUserId();
     }
 
     @Override
