@@ -1,9 +1,7 @@
 package com.example.ProductResellProject.domain.users;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.example.ProductResellProject.domain.posts.Posts;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,9 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class User{
 
@@ -30,24 +26,30 @@ public class User{
 
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @OneToMany(mappedBy = "user")
+    private List<Role> roles = new ArrayList<>();
 
-    public List<String> getRoleList() {
-        if(Role.values().length > 0) {
-            return Arrays.asList(Role.values().toString().split(","));
-        }
-        return new ArrayList<>();
-    }
+    @OneToMany(mappedBy = "user")
+    private List<Posts> posts = new ArrayList<>();
+
+//    public List<String> getRoleList() {
+//        if(Role.values().length > 0) {
+//            return Arrays.asList(Role.values().toString().split(","));
+//        }
+//        return new ArrayList<>();
+//    }
 
 
     //== 생성 메서드 ==//
     @Builder
-    public User(String userId, String userPwd, String name, Role role) {
+    public User(String userId, String userPwd, String name) {
         this.userId = userId;
         this.userPwd = userPwd;
         this.name = name;
-        this.role = role;
     }
+
+//    public addRole(Role.RoleType roleType){
+//
+//    }
 }
 

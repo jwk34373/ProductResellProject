@@ -58,7 +58,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             // 로그인 완료
             PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
             System.out.println("로그인 완료됨 : "+principalDetails.getUser().getUserId());
-            System.out.println("계정 권한 : " +principalDetails.getUser().getRole());
+//            System.out.println("계정 권한 : " +principalDetails.getUser().getRole());
 
             // return 을 함으로써 authentication 객체가 session 영역에 저장됨.
             // return 의 이유는 권한 관리를 security 가 대신 해주기 때문에 편하려고
