@@ -1,5 +1,6 @@
 package com.example.ProductResellProject.web;
 
+import com.example.ProductResellProject.configuration.auth.PrincipalDetails;
 import com.example.ProductResellProject.service.FileSystemStorageService;
 import com.example.ProductResellProject.service.PostsService;
 import com.example.ProductResellProject.web.dto.PostsResponseDto;
@@ -8,6 +9,7 @@ import com.example.ProductResellProject.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,17 +20,14 @@ import javax.servlet.http.HttpSession;
 public class PostsApiController {
     private final PostsService postsService;
     private final FileSystemStorageService storageService;
-    private final HttpSession session;
 
     @PostMapping("/api/v1/posts")
-    public Long save(MultipartHttpServletRequest req) {
-        if(session == null) throw new IllegalStateException("login 필요");
-
-        String user = session.getAttribute("user").toString();
+    public Long save(MultipartHttpServletRequest req, Authentication authentication) {
+        PrincipalDetails principal = (PrincipalDetails)authentication.getPrincipal();
 
         PostsSaveRequestDto dto = PostsSaveRequestDto.builder()
                 .title(req.getParameter("title"))
-                .author(user)
+                .author(principal.getUser().getName())
                 .content(req.getParameter("content"))
                 .build();
 

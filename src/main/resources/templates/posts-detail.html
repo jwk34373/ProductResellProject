@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="/layout/header.html :: fragment-header"></div>
+<body>
+
+<div class="grid-container" th:object="${post}">
+    <input type="hidden" class="form-control" th:field="*{id}" readonly>
+    <div class="item1">게시글 상세 정보</div>
+    <div class="item2">
+        <span th:text="${post.title}"></span>
+        <img class="image" th:src="@{/upload-dir/{id}.jpg(id=${post.id})}" />
+        <span th:text="${post.author}"></span>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <a href="/" role="button" class="btn btn-secondary">돌아가기</a>
+        <div th:if="${writer}">
+            <a href="/posts/update/{{id}}" role="button" class="btn btn-secondary">수정하기</a>
+            <button type="button" class="btn btn-danger" id="btn-delete">삭제하기</button>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="/layout/footer.html :: fragment-footer"></footer>
+</body>
+</html>

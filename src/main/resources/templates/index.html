@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="/layout/header.html :: fragment-header"></div>
+<body>
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6" th:if="${user}">
+            <i class="fas fa-hand-holding-usd"></i>
+            <a href="/posts/save" role="button" class="btn btn-primary">판매하기</a>
+            <a href="/updateForm" role="button" class="btn btn-primary">회원정보</a>
+            <i class="fas fa-sign-out-alt"></i>
+            <a href="/logout" class="btn btn-info active" role="button">로그아웃</a>
+        </div>
+        <div class="col-md-6" th:unless="${user}">
+            <i class="fas fa-sign-in-alt"></i>
+            <a href="/login-select" role="button" class="btn btn-login">로그인</a>
+            <i class="fas fa-user"></i>
+            <a href="/signup" role="button" class="btn btn-primary">회원가입</a>
+        </div>
+    </div>
+</div>
+
+<div class="main_title">
+    <i class="fas fa-store fa-5x"> 중고번개당근자라나라 </i>
+    <a href="/"></a>
+</div>
+
+<br>
+<div class="wrapper">
+    <th:block th:each="post : ${posts}">
+        <div class="card" style="cursor:pointer" th:onclick="location.href='/posts/detail/''+@{${post.id}}'">
+            <img th:src="@{/upload-dir/{id}.jpg(id=${post.id})}"/>
+            <div class="grid-title">
+                <p class="title"><a th:href="@{/posts/detail/{id}(id=${post.id})}">[[${post.title}]]</a></p>
+                <div class="line"></div>
+                <h5> 작성자 : [[${post.author}]]</h5>
+            </div>
+        </div>
+    </th:block>
+</div>
+<footer th:replace="/layout/footer.html :: fragment-footer"></footer>
+</body>
+</html>

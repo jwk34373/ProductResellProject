@@ -26,30 +26,32 @@ public class User{
 
     private String name;
 
-    @OneToMany(mappedBy = "user")
-    private List<Role> roles = new ArrayList<>();
+    private String roles;
+    /**
+     *  if admin ->    ROLE_USER,ROLE_ADMIN
+     */
+
+//    @OneToMany(mappedBy = "user")
+//    private List<Role> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<Posts> posts = new ArrayList<>();
 
-//    public List<String> getRoleList() {
-//        if(Role.values().length > 0) {
-//            return Arrays.asList(Role.values().toString().split(","));
-//        }
-//        return new ArrayList<>();
-//    }
+    public List<String> getRoleList() {
+        if(roles.length() > 0) {
+            return Arrays.asList(roles.split(","));
+        }
+        return new ArrayList<>();
+    }
 
 
     //== 생성 메서드 ==//
     @Builder
-    public User(String userId, String userPwd, String name) {
+    public User(String userId, String userPwd, String name, String roles) {
         this.userId = userId;
         this.userPwd = userPwd;
         this.name = name;
+        this.roles = roles;
     }
-
-//    public addRole(Role.RoleType roleType){
-//
-//    }
 }
 

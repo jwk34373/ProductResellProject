@@ -1,18 +1,21 @@
 package com.example.ProductResellProject.web;
 
+import com.example.ProductResellProject.configuration.auth.PrincipalDetails;
+import com.example.ProductResellProject.domain.users.RoleType;
 import com.example.ProductResellProject.service.PostsService;
-import com.example.ProductResellProject.service.PostsServiceImpl;
 import com.example.ProductResellProject.web.dto.PostsResponseDto;
-import com.example.ProductResellProject.web.dto.UserInfoDto;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -41,21 +44,25 @@ public class PostsController {
 
     @GetMapping("/posts/detail/{id}")
     @ApiOperation(value = "물품 상세보기", notes = "등록한 물품 상세 볼 수 있음.")
-    public String postDetail(@PathVariable Long id, Model model, UserInfoDto userInfoDto) {
-        String user = (String) session.getAttribute("user");
-        PostsResponseDto dto = postsService.findById(id);
-        model.addAttribute("post", dto);
-        String userRole = (String) session.getAttribute("role");
+    public String postDetail(@PathVariable String id, Model model, Authentication authentication) {
 
-        if(user == null) {
+        PostsResponseDto dto = postsService.findById(Long.parseLong(id));
+        model.addAttribute("post", dto);
+
+        if(authentication == null){
             return "redirect:/";
         }
 
-        if(user.equals(dto.getAuthor()) || userRole.equals("ROLE_ADMIN")) {
-            model.addAttribute("writer", true);
-        } else {
-            model.addAttribute("writer", false);
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        for (GrantedAuthority authority : (List<GrantedAuthority>) principal.getAuthorities()) {
+            if(authority.equals(RoleType.ADMIN)) {
+                // admin 일때 처리 ...
+            }
         }
+
+        // user가 그 post를 작성했나 ??
+        Boolean writer = postsService.isMyPost(principal.getUser().getId(), Long.parseLong(id));
+        model.addAttribute("writer", writer);
 
         return "posts-detail";
     }

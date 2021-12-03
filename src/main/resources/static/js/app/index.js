@@ -23,20 +23,12 @@ var main = {
         formData.append("title", $('#title').val());
         formData.append("content", $('#content').val());
         formData.append("file", $('#file')[0].files[0]);
-        $.ajaxSetup({
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Authorization', sessionStorage.getItem("Authorization"))
-            }
-        });
 
   function getOriginalName(data) {
 		var idxStart = data.lastIndexOf("_")+1;
 		var name = data.substring(idxStart);
 		return name;
 	}
-
-
-
         $.ajax({
             type: 'POST',
             url: '/api/v1/posts',
@@ -58,11 +50,6 @@ var main = {
 
         var id = $('#id').val();
 
-        $.ajaxSetup({
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Authorization', sessionStorage.getItem("Authorization"))
-            }
-        });
         $.ajax({
             type: 'PUT',
             url: '/api/v1/posts/'+id,
@@ -78,13 +65,6 @@ var main = {
     },
     delete : function () {
             var id = $('#id').val();
-            //var result = authRequest('/api/v1/posts/'+id, 'DELETE', null)
-
-            $.ajaxSetup({
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('Authorization', sessionStorage.getItem("Authorization"))
-                }
-            });
 
             $.ajax({
                 type: 'DELETE',
@@ -104,22 +84,21 @@ var main = {
             userPwd: $('#userPwd').val()
         };
 
-        $.ajaxSetup({
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Authorization', sessionStorage.getItem("Authorization"))
-            }
-        });
+        var setCookie = function(name, value, exp) {
+        var date = new Date();
+        date.setTime(date.getTime() + exp*24*60*60*1000);
+        document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+        };
 
         $.ajax({
             type: 'POST',
             url: '/login',
-            //dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function(data) {
-        var requestJwt = data;
-            alert(requestJwt);
-            sessionStorage.setItem("Authorization", "Bearer "+data);
+            alert("로그인성공");
+//            setCookie("Authorization","Bearer-"+data, 1);
+//            localStorage.setItem("Authorization", "Bearer "+data);
             window.location.href = '/';
         }).fail(function (error) {
             //alert('login fail');
@@ -135,13 +114,6 @@ var main = {
             name: $('#userName').val(),
             role: $(':radio[name="role"]:checked').val()
         };
-        authRequest('/signup/request', 'POST', data);
-
-        $.ajaxSetup({
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Authorization', sessionStorage.getItem("Authorization"))
-            }
-        });
 
         $.ajax({
             type: 'POST',
@@ -161,17 +133,3 @@ var main = {
 
 main.init();
 
-/*function authRequest(url, methodType, data){
-       ajax({
-           type: methodType,
-           url: url,
-           dataType: 'json',
-           contentType:'application/json; charset=utf-8',
-           data: JSON.stringify(data)
-           headers: {"Authorization" : sessionStorage.getItem("Authorization")}
-           }).done(function () {
-              alert('success');
-           }).fail(function (error) {
-              alert("fail");
-        });
-}*/

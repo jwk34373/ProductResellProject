@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="/layout/header.html :: fragment-header"></div>
+<body>
+
+<div class="grid-container" th:object="${post}">
+    <input type="hidden" class="form-control" th:field="*{id}" readonly>
+    <div class="item1">게시글 수정</div>
+    <input type="text" class="item2" th:field="*{title}">
+    <div class="item2">
+        <img class="image" src="shoes.jpg" />
+        <h5><input type="file" name="file" id="file" /></h5>
+    </div>
+    <input type="text" class="item2" th:field="*{content}">
+</div>
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <button type="button" class="btn btn-primary" id="btn-update">수정완료</button>
+    </div>
+</div>
+
+<footer th:replace="/layout/footer.html :: fragment-footer"></footer>
+</body>
+</html>

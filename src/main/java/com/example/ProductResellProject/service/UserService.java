@@ -46,7 +46,7 @@ public class UserService {
     public Long login(LoginInfoDto loginInfoDto, HttpServletRequest request){
         Optional<User> user = usersRepository.findByUserId(loginInfoDto.getUserId());
         User userRole = user.get();
-        String roleCheck = String.valueOf(userRole.getRole());
+        String roleCheck = String.valueOf(userRole.getRoles());
         HttpSession session = request.getSession();
 
         check(loginInfoDto.getUserId(), loginInfoDto.getUserPwd());

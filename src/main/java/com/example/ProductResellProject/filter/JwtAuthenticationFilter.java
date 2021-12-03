@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         System.out.println("JwtAuthenticationFilter : 로그인 시도중");
         // username과 passowrd를 받음
         try {
-/*            BufferedReader br = request.getReader();
+/*          BufferedReader br = request.getReader();
 
             String info = br.readLine();
             String[] userInfo = info.split("=|&");
@@ -58,7 +59,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             // 로그인 완료
             PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
             System.out.println("로그인 완료됨 : "+principalDetails.getUser().getUserId());
-//            System.out.println("계정 권한 : " +principalDetails.getUser().getRole());
 
             // return 을 함으로써 authentication 객체가 session 영역에 저장됨.
             // return 의 이유는 권한 관리를 security 가 대신 해주기 때문에 편하려고
@@ -80,13 +80,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // Hash 암호 방식
         String jwtToken = JWT.create()
                 .withSubject("cos토큰")
-                .withExpiresAt(new Date(System.currentTimeMillis()+(1000 * 60 * 10)))
+                .withExpiresAt(new Date(System.currentTimeMillis()+(1000 * 60 * 60)))
                 .withClaim("id", principalDetails.getUser().getId())
                 .withClaim("username", principalDetails.getUser().getUserId())
                 .sign(Algorithm.HMAC512("cos"));
 
-        System.out.println("Token 발급 완료 : Bearer "+jwtToken);
+        // 쿠키 추가
+        Cookie cookie = new Cookie("Authorization", "Bearer-" + jwtToken);
+        response.addCookie(cookie);
+
         response.getOutputStream().write(jwtToken.getBytes());
     }
-
 }
