@@ -1,7 +1,10 @@
 package com.example.ProductResellProject.domain.users;
 
 import com.example.ProductResellProject.domain.posts.Posts;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,10 +33,6 @@ public class User{
     /**
      *  if admin ->    ROLE_USER,ROLE_ADMIN
      */
-
-//    @OneToMany(mappedBy = "user")
-//    private List<Role> roles = new ArrayList<>();
-
     @OneToMany(mappedBy = "user")
     private List<Posts> posts = new ArrayList<>();
 
@@ -43,7 +42,6 @@ public class User{
         }
         return new ArrayList<>();
     }
-
 
     //== 생성 메서드 ==//
     @Builder

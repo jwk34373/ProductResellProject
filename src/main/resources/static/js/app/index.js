@@ -97,8 +97,6 @@ var main = {
             data: JSON.stringify(data)
         }).done(function(data) {
             alert("로그인성공");
-//            setCookie("Authorization","Bearer-"+data, 1);
-//            localStorage.setItem("Authorization", "Bearer "+data);
             window.location.href = '/';
         }).fail(function (error) {
             //alert('login fail');
@@ -112,7 +110,7 @@ var main = {
             userPwd: $('#userPwd').val(),
             userPwdCheck: $('#userPwdCheck').val(),
             name: $('#userName').val(),
-            role: $(':radio[name="role"]:checked').val()
+            roles: $(':radio[name="role"]:checked').val()
         };
 
         $.ajax({

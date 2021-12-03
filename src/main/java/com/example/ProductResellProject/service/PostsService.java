@@ -2,19 +2,16 @@ package com.example.ProductResellProject.service;
 
 import com.example.ProductResellProject.domain.posts.Posts;
 import com.example.ProductResellProject.domain.posts.PostsRepository;
-import com.example.ProductResellProject.domain.users.User;
 import com.example.ProductResellProject.domain.users.UsersRepository;
-import com.example.ProductResellProject.web.dto.PostsListResponseDto;
 import com.example.ProductResellProject.web.dto.PostsResponseDto;
 import com.example.ProductResellProject.web.dto.PostsSaveRequestDto;
 import com.example.ProductResellProject.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -25,7 +22,6 @@ public class PostsService {
     @Transactional
     public Long save(PostsSaveRequestDto requestDto) {
         Posts posts = requestDto.toEntity();
-
         postsRepository.save(posts);
         return posts.imageUpdate(Long.toString(posts.getId())).getId();
     }
@@ -43,14 +39,6 @@ public class PostsService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+ id));
 
         return new PostsResponseDto(entity);
-    }
-
-    @Transactional(readOnly = true)
-    public List<PostsListResponseDto> findAllDesc() {
-        return postsRepository.findAllDesc().stream()
-                .map(PostsListResponseDto::new) // (post) -> {PostsListResponseDto(post)}
-                .collect(Collectors.toList());  // stream -> List
-
     }
 
     @Transactional
@@ -74,5 +62,13 @@ public class PostsService {
             return true;
         }
         return false;
+    }
+
+    public Page<Posts> findAll(Pageable pageable) {
+        return postsRepository.findAll(pageable);
+    }
+
+    public Page<Posts> postsSearchList(String searchKeyword, Pageable pageable) {
+        return postsRepository.findByTitleContaining(searchKeyword, pageable);
     }
 }

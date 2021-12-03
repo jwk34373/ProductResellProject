@@ -25,6 +25,11 @@
     <a href="/"></a>
 </div>
 
+<form th:action="@{/}" method="get">
+    <input type = "text" name="searchKeyword">
+    <button type="submit">검색</button>
+</form>
+
 <br>
 <div class="wrapper">
     <th:block th:each="post : ${posts}">
@@ -38,6 +43,13 @@
         </div>
     </th:block>
 </div>
+
+<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+    <a th:if="${page != nowPage}" th:href="@{/(page = ${page -1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}">
+        <strong th:if="${page != nowPage}" th:text="${page}" style="color : red"></strong>
+    </a>
+</th:block>
+
 <footer th:replace="/layout/footer.html :: fragment-footer"></footer>
 </body>
 </html>

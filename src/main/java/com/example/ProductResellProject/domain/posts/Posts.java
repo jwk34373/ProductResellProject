@@ -74,7 +74,7 @@ public class Posts extends BaseTimeEntity {
         user.getPosts().add(this);
     }
 
-    public void update(String title, String content){
+    public void update(String title, String content) {
         this.title = title;
         this.content = content;
     }
