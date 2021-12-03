@@ -133,9 +133,9 @@ var main = {
             userPwd: $('#userPwd').val(),
             userPwdCheck: $('#userPwdCheck').val(),
             name: $('#userName').val(),
-            role: $(':radio[name="role"]:checked').val()
+            roles: $(':radio[name="role"]:checked').val()
         };
-        authRequest('/signup/request', 'POST', data);
+        //authRequest('/signup/request', 'POST', data);
 
         $.ajaxSetup({
             beforeSend: function(xhr) {

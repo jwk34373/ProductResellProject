@@ -6,10 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -27,10 +26,10 @@ public class UserInfoDto {
     @NotBlank
     @Size(min = 3, max = 20)
     private String userPwdCheck;
-    private Role role;
+    private List<Role> role;
 
     @Builder
-    public UserInfoDto(String userId, String userPwd, String name, String userPwdCheck, Role role) {
+    public UserInfoDto(String userId, String userPwd, String name, String userPwdCheck, List<Role> role) {
         this.userId = userId;
         this.userPwd = userPwd;
         this.name = name;
@@ -43,7 +42,7 @@ public class UserInfoDto {
                 .userId(userId)
                 .userPwd(bcryptPwd)
                 .name(name)
-                .role(role)
+                .roles(role)
                 .build();
     }
 

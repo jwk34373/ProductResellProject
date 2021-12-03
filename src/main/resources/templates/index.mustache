@@ -1,4 +1,3 @@
-
 {{>layout/header}}
 <center>
     <div class="col-md-12">
@@ -37,12 +36,16 @@
                 <div class="line"></div>
                 <h5> 작성자 : {{author}}</h5>
             </div>
-            <div>
-
-            </div>
         </div>
     {{/posts}}
+
+    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+        <h1>aaa</h1>
+        <a th:if="${page != nowPage}" th:href="@{/(page = ${page -1})}" th:text="${page}"></a>
+        <strong th:if="${page != nowPage}" th:text="${page}" style="color : red"></strong>
+    </th:block>
 </div>
+
 
 
 {{>layout/footer}}

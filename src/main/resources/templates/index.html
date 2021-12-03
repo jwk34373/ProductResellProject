@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product Resell</title>
+    <meta http-equiv="Content-Type" content="text/html" ; charset="UTF-8"/>
+    <link rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/44344fb420.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/css/posts-update.css">
+</head>
+
+<body>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <a href="/login-select" role="button" class="btn btn-login">로그인</a>
+                    <i class="fas fa-user"></i>
+                    <a href="/signup" role="button" class="btn btn-primary">회원가입</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="main_title">
+        <i class="fas fa-store fa-5x" > 중고번개당근자라나라 </i>
+        <a href="/" ></a>
+    </div>
+</center>
+
+    <form th:action="@{/}" method="get">
+        <input type = "text" name="searchKeyword">
+        <button type="submit">검색</button>
+    </form>
+
+<br>
+<div class="wrapper">
+    <tbody>
+      <tr th:each="posts : ${posts}">
+          <link th:href="@{/css/index.css}" rel="stylesheet" class="card" style="cursor:pointer", onclick="location.href='/posts/detail/${posts.id}'">
+              <img th:src="@{/upload-dir/${posts.id}.jpg}"/>
+              <!--<div class="grid-title"> -->
+                  <p class="title">
+                      <a th:href="@{/posts/detail/${posts.id}}" th:text="${posts.title}"></a>
+                  </p>
+                  <div class="line"></div>
+                  <h5 th:text = "${posts.author}"></h5>
+              <!-- </div> -->
+          </link>
+      </tr>
+    </tbody>
+
+    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+        <a th:if="${page != nowPage}" th:href="@{/(page = ${page -1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}">
+            <strong th:if="${page != nowPage}" th:text="${page}" style="color : red"></strong>
+        </a>
+    </th:block>
+
+</div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
+    <!--index.js 추가-->
+    <script src="/js/app/index.js"></script>
+</body>
+</html>

@@ -1,11 +1,13 @@
 package com.example.ProductResellProject.domain.users;
 
 import com.example.ProductResellProject.domain.posts.Posts;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -32,20 +34,21 @@ public class User{
     @OneToMany(mappedBy = "user")
     private List<Posts> posts = new ArrayList<>();
 
-//    public List<String> getRoleList() {
-//        if(Role.values().length > 0) {
-//            return Arrays.asList(Role.values().toString().split(","));
-//        }
-//        return new ArrayList<>();
-//    }
+/*    public List<String> getRoleList() {
+        if(Role.values().length > 0) {
+            return Arrays.asList(Role.values().toString().split(","));
+        }
+        return new ArrayList<>();
+    }*/
 
 
     //== 생성 메서드 ==//
     @Builder
-    public User(String userId, String userPwd, String name) {
+    public User(String userId, String userPwd, String name, List<Role> roles) {
         this.userId = userId;
         this.userPwd = userPwd;
         this.name = name;
+        this.roles = roles;
     }
 
 //    public addRole(Role.RoleType roleType){

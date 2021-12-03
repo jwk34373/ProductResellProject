@@ -23,6 +23,7 @@ public class PrincipalDetailsService implements UserDetailsService {
         System.out.println("PrincipalDetailsService 의 loadUserByUsername()");
         Optional<User> users = usersRepository.findByUserId(username);
         User userEntity = users.get();
+        //System.out.println("=================================== : " + userEntity.getRoles());
         return new PrincipalDetails(userEntity);
     }
 }
