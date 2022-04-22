@@ -1,7 +1,7 @@
 package com.example.ProductResellProject.web;
+import com.example.ProductResellProject.Post.domain.Post;
+import com.example.ProductResellProject.Post.service.PostCrudService;
 import com.example.ProductResellProject.configuration.auth.PrincipalDetails;
-import com.example.ProductResellProject.domain.posts.Posts;
-import com.example.ProductResellProject.service.PostsService;
 import com.example.ProductResellProject.service.UserService;
 import com.example.ProductResellProject.web.dto.LoginInfoDto;
 import com.example.ProductResellProject.web.dto.UserInfoDto;
@@ -25,7 +25,7 @@ import javax.validation.Valid;
 public class IndexController {
 
 
-    private final PostsService postsService;
+    private final PostCrudService postCrudService;
     private final UserService userService;
 
     @GetMapping("/")
@@ -33,12 +33,12 @@ public class IndexController {
                         @PageableDefault(page = 0, size = 6, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                         String searchKeyword) {
 
-        Page<Posts> list = null;
+        Page<Post> list = null;
 
         if(searchKeyword == null) {
-            list = postsService.findAll(pageable);
+            list = postCrudService.findAll(pageable);
         } else {
-            list = postsService.postsSearchList(searchKeyword, pageable);
+            list = postCrudService.postsSearchList(searchKeyword, pageable);
         }
 
         int nowPage = list.getPageable().getPageNumber() + 1;

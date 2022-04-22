@@ -1,12 +1,11 @@
-package com.example.ProductResellProject.service;
+package com.example.ProductResellProject.Post.service;
 
-import com.example.ProductResellProject.domain.posts.Posts;
-import com.example.ProductResellProject.domain.posts.PostsRepository;
-import com.example.ProductResellProject.domain.posts.UploadFile;
+import com.example.ProductResellProject.Post.domain.Post;
+import com.example.ProductResellProject.Post.domain.PostsRepository;
+import com.example.ProductResellProject.Post.domain.UploadFile;
 import com.example.ProductResellProject.domain.users.User;
 import com.example.ProductResellProject.domain.users.UsersRepository;
-import com.example.ProductResellProject.file.FileStore;
-import com.example.ProductResellProject.web.dto.PostForm;
+import com.example.ProductResellProject.web.dto.PostSaveRequestForm;
 import com.example.ProductResellProject.web.dto.PostsResponseDto;
 import com.example.ProductResellProject.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -17,40 +16,42 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.io.IOException;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class PostsService {
+public class PostCrudService {
     private final PostsRepository postsRepository;
     private final UsersRepository usersRepository;
     private final FileStore fileStore;
 
     @Transactional
-    public Long save(PostForm form, String userId) throws IOException {
+    public Long save(PostSaveRequestForm form, String userId) throws IOException {
         User user = usersRepository.findByUserId(userId).get();
-        Posts post = Posts.builder()
+
+        List<UploadFile> uploadFiles = fileStore.storeFiles(form.getImageFiles());
+        Post post = Post.builder()
                 .content(form.getContent())
                 .author(user.getName())
                 .title(form.getTitle())
+                .uploadFiles(uploadFiles)
                 .build();
 
-        post.addUploadFile(fileStore.storeFile(form.getImageFile()));
-        post.addUser(user);
         return postsRepository.save(post).getId();
     }
 
-    @Transactional
-    public Long update(Long id, PostsUpdateRequestDto requestDto) {
-        Posts posts = postsRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("해당 게시글이 없습니다. id="+ id));
-
-        posts.update(requestDto.getTitle(), requestDto.getContent());
-        return id;
-    }
+//    @Transactional
+//    public Long update(Long id, PostsUpdateRequestDto requestDto) {
+//        Post posts = postsRepository.findById(id).orElseThrow(() ->
+//                new IllegalArgumentException("해당 게시글이 없습니다. id="+ id));
+//
+//        posts.update(requestDto.getTitle(), requestDto.getContent());
+//        return id;
+//    }
 
     public PostsResponseDto findById (Long id){
-        Posts entity = postsRepository.findById(id)
+        Post entity = postsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+ id));
 
         return new PostsResponseDto(entity);
@@ -58,7 +59,7 @@ public class PostsService {
 
     @Transactional
     public void delete(Long id) {
-        //Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        //Post posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
         postsRepository.deleteById(id);
     }
 
@@ -69,7 +70,7 @@ public class PostsService {
     @Transactional
     public boolean isMyPost(Long userId, Long postId){
 
-        Posts posts = postsRepository.findById(postId).get();
+        Post posts = postsRepository.findById(postId).get();
 
         // posts 객체 저장할때 user 저장 해주게 바꾸면 돌아갈듯 ??
         // 지금은 안돌아감 ㅜ.ㅜ
@@ -79,11 +80,11 @@ public class PostsService {
         return false;
     }
 
-    public Page<Posts> findAll(Pageable pageable) {
+    public Page<Post> findAll(Pageable pageable) {
         return postsRepository.findAll(pageable);
     }
 
-    public Page<Posts> postsSearchList(String searchKeyword, Pageable pageable) {
+    public Page<Post> postsSearchList(String searchKeyword, Pageable pageable) {
         return postsRepository.findByTitleContaining(searchKeyword, pageable);
     }
 }

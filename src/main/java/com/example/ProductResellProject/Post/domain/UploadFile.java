@@ -1,5 +1,8 @@
-package com.example.ProductResellProject.domain.posts;
+package com.example.ProductResellProject.Post.domain;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class UploadFile {
 
     private String uploadFileName;

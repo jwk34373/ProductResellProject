@@ -1,6 +1,6 @@
 package com.example.ProductResellProject.web.dto;
 
-import com.example.ProductResellProject.domain.posts.Posts;
+import com.example.ProductResellProject.Post.domain.Post;
 import lombok.Getter;
 
 @Getter
@@ -10,7 +10,7 @@ public class PostsResponseDto {
     private String content;
     private String author;
 
-    public PostsResponseDto(Posts entity){
+    public PostsResponseDto(Post entity){
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.content = entity.getContent();

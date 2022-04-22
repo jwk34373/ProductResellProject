@@ -11,7 +11,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect    # H2Dialect, MySQL57Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: false
@@ -29,4 +29,8 @@ spring:
   servlet.multipart:    # image size
     max-file-size: 5MB
     max-request-size: 5MB
+
+# 이미지 경로 설정
+file:
+  dir: C:/Users/dy/Documents/img/
 

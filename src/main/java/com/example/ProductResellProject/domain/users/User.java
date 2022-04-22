@@ -1,6 +1,6 @@
 package com.example.ProductResellProject.domain.users;
 
-import com.example.ProductResellProject.domain.posts.Posts;
+import com.example.ProductResellProject.Post.domain.Post;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,7 +34,7 @@ public class User{
      *  if admin ->  ROLE_USER,ROLE_ADMIN
      */
     @OneToMany(mappedBy = "user")
-    private List<Posts> posts = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
     public List<String> getRoleList() {
         if(roles.length() > 0) {

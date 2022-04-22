@@ -1,6 +1,6 @@
 package com.example.ProductResellProject.domain.reports;
 
-import com.example.ProductResellProject.domain.BaseTimeEntity;
+import com.example.ProductResellProject.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

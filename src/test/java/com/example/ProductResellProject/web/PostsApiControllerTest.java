@@ -1,10 +1,9 @@
 package com.example.ProductResellProject.web;
 
-import com.example.ProductResellProject.domain.posts.Posts;
-import com.example.ProductResellProject.domain.posts.PostsRepository;
+import com.example.ProductResellProject.Post.domain.Post;
+import com.example.ProductResellProject.Post.domain.PostsRepository;
 import com.example.ProductResellProject.web.dto.PostsSaveRequestDto;
 import com.example.ProductResellProject.web.dto.PostsUpdateRequestDto;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +16,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
@@ -64,7 +62,7 @@ class PostsApiControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
-        List<Posts> all = postsRepository.findAll();
+        List<Post> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
     }
@@ -72,7 +70,7 @@ class PostsApiControllerTest {
     @Test
     public void Posts_수정된다() throws Exception {
         //given
-        Posts savedPosts = postsRepository.save(Posts.builder()
+        Post savedPosts = postsRepository.save(Post.builder()
                 .title("title")
                 .content("content")
                 .author("author")
@@ -98,7 +96,7 @@ class PostsApiControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
-        List<Posts> all = postsRepository.findAll();
+        List<Post> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
         assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
     }

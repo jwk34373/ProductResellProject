@@ -1,7 +1,7 @@
 package com.example.ProductResellProject.domain.posts;
 
-import org.aspectj.lang.annotation.After;
-import org.assertj.core.api.Assertions;
+import com.example.ProductResellProject.Post.domain.Post;
+import com.example.ProductResellProject.Post.domain.PostsRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -33,17 +32,17 @@ class PostsRepositoryTest {
         String title = "Test";
         String content = "Test11111111";
 
-        postsRepository.save(Posts.builder()
+        postsRepository.save(Post.builder()
                 .title(title)
                 .content(content)
                 .author("abcd")
                 .build());
 
         //when
-        List<Posts> postsList = postsRepository.findAll();
+        List<Post> postsList = postsRepository.findAll();
 
         //then
-        Posts posts = postsList.get(0);
+        Post posts = postsList.get(0);
         assertThat(posts.getTitle()).isEqualTo(title);
         assertThat(posts.getContent()).isEqualTo(content);
     }
@@ -52,17 +51,17 @@ class PostsRepositoryTest {
     public void BaseTimeEntity_등록() {
         //given
         LocalDateTime now = LocalDateTime.of(2021,9,20,0,0,0);
-        postsRepository.save(Posts.builder()
+        postsRepository.save(Post.builder()
                 .title("title")
                 .content("content")
                 .author("author")
                 .build());
 
         //when
-        List<Posts> postsList = postsRepository.findAll();
+        List<Post> postsList = postsRepository.findAll();
 
         //then
-        Posts posts = postsList.get(0);
+        Post posts = postsList.get(0);
 
         System.out.println(">>>>>>>>>>>>>>>>> createDate="+posts.getCreatedDate()+", modifiedDate="+posts.getModifiedDate());
 

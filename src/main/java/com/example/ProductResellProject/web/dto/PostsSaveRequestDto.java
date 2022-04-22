@@ -1,6 +1,6 @@
 package com.example.ProductResellProject.web.dto;
 
-import com.example.ProductResellProject.domain.posts.Posts;
+import com.example.ProductResellProject.Post.domain.Post;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +19,8 @@ public class PostsSaveRequestDto {
         this.content = content;
         this.author = author;
     }
-    public Posts toEntity() {
-        return Posts.builder()
+    public Post toEntity() {
+        return Post.builder()
                 .title(title)
                 .content(content)
                 .author(author)

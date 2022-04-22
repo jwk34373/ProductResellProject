@@ -6,12 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Data
-public class PostForm {
-
-    private Long id;
+public class PostSaveRequestForm {
+    private Long postId;
     private String title;
     private String content;
-//    private List<MultipartFile> imageFiles;
-    private MultipartFile imageFile; //
+    private List<MultipartFile> imageFiles;
+//    private MultipartFile imageFile; //
 
 }

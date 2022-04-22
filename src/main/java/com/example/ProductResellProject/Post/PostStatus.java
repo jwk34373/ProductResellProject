@@ -1,4 +1,4 @@
-package com.example.ProductResellProject.domain.posts;
+package com.example.ProductResellProject.Post;
 
 public enum PostStatus {
     COMPLETE,

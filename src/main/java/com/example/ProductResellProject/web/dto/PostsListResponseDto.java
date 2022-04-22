@@ -1,6 +1,6 @@
 package com.example.ProductResellProject.web.dto;
 
-import com.example.ProductResellProject.domain.posts.Posts;
+import com.example.ProductResellProject.Post.domain.Post;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -13,7 +13,7 @@ public class PostsListResponseDto {
     private String author;
     private LocalDateTime modifiedDate;
 
-    public PostsListResponseDto(Posts entity) {
+    public PostsListResponseDto(Post entity) {
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.author = entity.getAuthor();

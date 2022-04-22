@@ -1,8 +1,8 @@
 package com.example.ProductResellProject.web;
 
+import com.example.ProductResellProject.Post.service.PostCrudService;
 import com.example.ProductResellProject.configuration.auth.PrincipalDetails;
 import com.example.ProductResellProject.domain.users.RoleType;
-import com.example.ProductResellProject.service.PostsService;
 import com.example.ProductResellProject.web.dto.PostsResponseDto;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostsController {
 
-    private final PostsService postsService;
+    private final PostCrudService postsService;
     private final HttpSession session;
 
     @GetMapping("/posts/save")
