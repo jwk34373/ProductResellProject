@@ -27,19 +27,21 @@ public class UserService {
     public Long save(UserInfoDto userInfoDto) {
 
         validateDuplicateUser(userInfoDto.getUserId()); // ID 중복 체크
-        if(!userInfoDto.getUserPwd().equals(userInfoDto.getUserPwdCheck())){    // pwd 체크
-            throw new IllegalStateException("Password가 동일하지 않습니다.");
-        }
+        validatePwCheck(userInfoDto.getUserPwd(), userInfoDto.getUserPwdCheck()); // pw 체크
 
         String encodePwd = passwordEncoder.encode(userInfoDto.getUserPwd());
         return usersRepository.save(userInfoDto.toEntity(encodePwd)).getId();
     }
 
+    private void validatePwCheck(String pw, String pwCheck) {
+        if(!pw.equals(pwCheck)){    // pwd 체크
+            throw new IllegalArgumentException("Password가 동일하지 않습니다.");
+        }
+    }
+
     private void validateDuplicateUser(String userId){
-        Optional<User> user = usersRepository.findByUserId(userId);
-        log.info("userId : " + userId);
-        user.ifPresent(findUser -> {
-            throw new RuntimeException("아이디 중복");
+        usersRepository.findByUserId(userId).ifPresent(user -> {
+            throw new IllegalArgumentException("아이디 중복 id= " + userId);
         });
     }
 

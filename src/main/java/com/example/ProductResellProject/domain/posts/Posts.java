@@ -30,15 +30,7 @@ public class Posts extends BaseTimeEntity {
 
     private String author;
 
-    private String image;
-
-    private Long likeNumber;
-
-    @Enumerated(EnumType.STRING)
-    private PostStatus postStatus;
-
-    @Enumerated(EnumType.STRING)
-    private Category category;
+    private UploadFile uploadFile;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_code")
@@ -47,35 +39,22 @@ public class Posts extends BaseTimeEntity {
     @OneToMany(mappedBy = "posts")
     private List<Comment> comments = new ArrayList<>();
 
+    public void addUploadFile(UploadFile uploadFile) {
+        this.uploadFile = uploadFile;
+    }
+
     @Builder
-    public Posts(String title, String content, String author){
+    public Posts(String title, String content, String author) {
         this.title = title;
         this.content = content;
         this.author = author;
     }
 
-    @Builder
-    public Posts(String title, String content, String author, String image, Category category, User user) {
-        this.title = title;
-        this.content = content;
-        this.author = user.getName();
-        this.category = category;
-        addUser(user);
-        imageUpdate(image);
-    }
-
-    public Posts imageUpdate(String image) {
-        this.image = image+".jpg";
-        return this;
-    }
-
-    private void addUser(User user) {
+    // == 연관관계 메서드 ==
+    public void addUser(User user) {
         this.user = user;
         user.getPosts().add(this);
     }
 
-    public void update(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
+
 }

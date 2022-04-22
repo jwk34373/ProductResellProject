@@ -19,7 +19,7 @@ public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_code")
-    private long id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String userId;
@@ -31,7 +31,7 @@ public class User{
 
     private String roles;
     /**
-     *  if admin ->    ROLE_USER,ROLE_ADMIN
+     *  if admin ->  ROLE_USER,ROLE_ADMIN
      */
     @OneToMany(mappedBy = "user")
     private List<Posts> posts = new ArrayList<>();

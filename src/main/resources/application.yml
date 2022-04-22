@@ -29,3 +29,4 @@ spring:
   servlet.multipart:    # image size
     max-file-size: 5MB
     max-request-size: 5MB
+
