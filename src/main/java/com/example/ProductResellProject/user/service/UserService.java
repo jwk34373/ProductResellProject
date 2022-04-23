@@ -1,9 +1,9 @@
-package com.example.ProductResellProject.service;
+package com.example.ProductResellProject.user.service;
 
-import com.example.ProductResellProject.domain.users.User;
-import com.example.ProductResellProject.domain.users.UsersRepository;
-import com.example.ProductResellProject.web.dto.LoginInfoDto;
-import com.example.ProductResellProject.web.dto.UserInfoDto;
+import com.example.ProductResellProject.user.domain.User;
+import com.example.ProductResellProject.user.domain.UsersRepository;
+import com.example.ProductResellProject.user.api.dto.LoginInfoDto;
+import com.example.ProductResellProject.user.api.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;

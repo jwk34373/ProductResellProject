@@ -3,7 +3,7 @@ package com.example.ProductResellProject.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.ProductResellProject.configuration.auth.PrincipalDetails;
-import com.example.ProductResellProject.domain.users.User;
+import com.example.ProductResellProject.user.domain.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

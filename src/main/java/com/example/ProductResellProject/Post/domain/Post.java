@@ -2,7 +2,7 @@ package com.example.ProductResellProject.Post.domain;
 
 import com.example.ProductResellProject.common.BaseTimeEntity;
 import com.example.ProductResellProject.domain.comments.Comment;
-import com.example.ProductResellProject.domain.users.User;
+import com.example.ProductResellProject.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Getter

@@ -1,14 +1,13 @@
-package com.example.ProductResellProject.web.dto;
+package com.example.ProductResellProject.user.api.dto;
 
-import com.example.ProductResellProject.domain.users.RoleType;
-import com.example.ProductResellProject.domain.users.User;
+import com.example.ProductResellProject.user.domain.RoleType;
+import com.example.ProductResellProject.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor

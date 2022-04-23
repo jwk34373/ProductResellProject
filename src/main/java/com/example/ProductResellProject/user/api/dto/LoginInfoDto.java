@@ -1,6 +1,6 @@
-package com.example.ProductResellProject.web.dto;
+package com.example.ProductResellProject.user.api.dto;
 
-import com.example.ProductResellProject.domain.users.User;
+import com.example.ProductResellProject.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

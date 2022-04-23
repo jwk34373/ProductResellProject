@@ -1,9 +1,9 @@
 package com.example.ProductResellProject.configuration;
 
-import com.example.ProductResellProject.domain.users.UsersRepository;
+import com.example.ProductResellProject.user.domain.UsersRepository;
 import com.example.ProductResellProject.filter.JwtAuthorizationFilter;
 import com.example.ProductResellProject.filter.JwtAuthenticationFilter;
-import com.example.ProductResellProject.service.UserService;
+import com.example.ProductResellProject.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.example.ProductResellProject.domain.users;
+package com.example.ProductResellProject.user.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

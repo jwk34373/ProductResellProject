@@ -1,9 +1,9 @@
-package com.example.ProductResellProject.service;
+package com.example.ProductResellProject.common;
 
 
 import com.example.ProductResellProject.configuration.auth.PrincipalDetails;
-import com.example.ProductResellProject.domain.users.User;
-import com.example.ProductResellProject.domain.users.UsersRepository;
+import com.example.ProductResellProject.user.domain.User;
+import com.example.ProductResellProject.user.domain.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

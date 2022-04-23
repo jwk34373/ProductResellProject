@@ -1,4 +1,4 @@
-package com.example.ProductResellProject.domain.users;
+package com.example.ProductResellProject.user.domain;
 
 public interface RoleType {
     String USER = "ROLE_USER";

@@ -1,6 +1,6 @@
 package com.example.ProductResellProject.configuration.auth;
 
-import com.example.ProductResellProject.domain.users.User;
+import com.example.ProductResellProject.user.domain.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -2,7 +2,7 @@ package com.example.ProductResellProject.web;
 
 import com.example.ProductResellProject.Post.service.PostCrudService;
 import com.example.ProductResellProject.configuration.auth.PrincipalDetails;
-import com.example.ProductResellProject.domain.users.RoleType;
+import com.example.ProductResellProject.user.domain.RoleType;
 import com.example.ProductResellProject.web.dto.PostsResponseDto;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
